@@ -20,7 +20,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to MongoDB
-
+// TODO: Need to name database
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/databaseNeedsName");
 
 // Start the Server
 app.listen(PORT, function () {
