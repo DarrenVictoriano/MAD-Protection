@@ -20,7 +20,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to MongoDB
-
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mad";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Start the Server
 app.listen(PORT, function () {
