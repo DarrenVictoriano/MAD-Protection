@@ -3,6 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/index";
 import PageNotFound from "./pages/404-error";
+import Home from "./pages/home";
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
             <div>
                 <Switch>
                     <Route exact path="/" component={Login} />
+                    <Route exact path="/home" component={Home} />
                     <Route component={PageNotFound} />
                 </Switch>
             </div>
