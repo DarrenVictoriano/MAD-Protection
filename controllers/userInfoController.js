@@ -16,7 +16,7 @@ module.exports = {
     },
     create: function(req, res) {
         db.UserInfo
-            .create(req, body)
+            .create(req.body)
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     },
