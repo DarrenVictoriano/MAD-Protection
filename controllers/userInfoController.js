@@ -4,10 +4,11 @@ const mad = require("./encryption");
 module.exports = {
     findAll: function (req, res) {
         db.UserInfo
-            .find()
+            .find(req.query)
             .sort({ lastName: 1 })
             .then(dbUserInfo => {
-                let decrptedData = []
+                console.log("dbUserInfo " + dbUserInfo);
+                let decrptedData = [];
 
                 for (let i in dbUserInfo) {
                     decrptedData.push({
@@ -18,6 +19,7 @@ module.exports = {
                         Password: mad.decrypt(dbUserInfo[i].Password)
                     });
                 }
+                console.log("decrypted data " + decrptedData);
                 res.json(decrptedData)
             })
             .catch(err => res.status(422).json(err));
