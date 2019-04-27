@@ -2,15 +2,15 @@ const db = require("../models");
 const mad = require("./encryption");
 
 module.exports = {
-    findAll: function(req, res) {
+    findAll: function (req, res) {
         db.UserInfo
             .find(req.query)
-            .sort( {lastName : 1 } )
+            .sort({ lastName: 1 })
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     },
-    findById: function(req, res) {
-        db.UserInfo 
+    findById: function (req, res) {
+        db.UserInfo
             .findById(req.params.id)
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
@@ -29,15 +29,15 @@ module.exports = {
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     },
-    update: function(req, res) {
+    update: function (req, res) {
         db.UserInfo
-            .findOneAndUpdate( { _id : req.params.id }, req.body )
+            .findOneAndUpdate({ _id: req.params.id }, req.body)
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     },
-    remove: function(req, res) {
+    remove: function (req, res) {
         db.UserInfo
-            .findById( { _id : req.params.id } )
+            .findById({ _id: req.params.id })
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     }

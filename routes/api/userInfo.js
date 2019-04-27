@@ -11,3 +11,4 @@ router.route("/:id")
     .delete(userInfoController.remove);
 
 module.exports = router;
+
