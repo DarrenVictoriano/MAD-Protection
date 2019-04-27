@@ -15,14 +15,17 @@ module.exports = {
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     },
-    create: function (req, res) {
+    create: function(req, res) {
+        console.log(typeof req.body.Password);
+        encrytedData = {
+            firstName : mad.encrypt(req.body.firstName).toString(),
+            lastName: mad.encrypt(req.body.lastName).toString(),
+            email: mad.encrypt(req.body.email).toString(),
+            Password: mad.encrypt(req.body.Password).toString()
+        };
+
         db.UserInfo
-            .create({
-                firstName : req.body.firstName,
-                lastName: req.body.lastName,
-                email: req.body.email,
-                Password: req.body.Password
-            })
+            .create(encrytedData)
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     },
