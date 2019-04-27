@@ -1,6 +1,8 @@
 // Import React and React Router Dom
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./pages/index";
+import PageNotFound from "./pages/404-error";
 
 function App() {
 
@@ -8,8 +10,8 @@ function App() {
         <Router>
             <div>
                 <Switch>
-                    <Route exact path="/" render={() => <h1>Hi this is react app</h1>} />
-                    <Route render={() => <h1>No Page Found</h1>} />
+                    <Route exact path="/" component={Login} />
+                    <Route component={PageNotFound} />
                 </Switch>
             </div>
         </Router>
