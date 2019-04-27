@@ -27,7 +27,12 @@ function decrypt(text) {
     return decrypted.toString();
 }
 
-module.exports = { decrypt, encrypt };
+function generatePass(length) {
+    // create generate random pasword
+    console.log(length);
+}
+
+module.exports = { decrypt, encrypt, generatePass };
 
 // Test
 // var hw = encrypt("Some serious stuff")
