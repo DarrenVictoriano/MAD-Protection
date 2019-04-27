@@ -7,12 +7,16 @@ module.exports = {
             .find()
             .sort({ lastName: 1 })
             .then(dbUserInfo => {
-                let decrptedData = {
-                    _id: dbUserInfo._id,
-                    firstName: mad.decrypt(dbUserInfo.firstName),
-                    lastName: mad.decrypt(dbUserInfo.lastName),
-                    email: mad.decrypt(dbUserInfo.email),
-                    Password: mad.decrypt(dbUserInfo.Password)
+                let decrptedData = []
+
+                for (let i in dbUserInfo) {
+                    decrptedData.push({
+                        _id: dbUserInfo[i]._id,
+                        firstName: mad.decrypt(dbUserInfo[i].firstName),
+                        lastName: mad.decrypt(dbUserInfo[i].lastName),
+                        email: mad.decrypt(dbUserInfo[i].email),
+                        Password: mad.decrypt(dbUserInfo[i].Password)
+                    });
                 }
                 res.json(decrptedData)
             })
