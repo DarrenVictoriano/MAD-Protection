@@ -16,7 +16,12 @@ module.exports = {
     },
     create: function (req, res) {
         db.UserInfo
-            .create(req.body)
+            .create({
+                firstName : req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                Password: req.body.Password
+            })
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
     },
