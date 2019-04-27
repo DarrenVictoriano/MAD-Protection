@@ -35,6 +35,6 @@ function generatePass(length) {
 module.exports = { decrypt, encrypt, generatePass };
 
 // Test
-var hw = encrypt("Some serious stuff")
-console.log(hw)
-console.log("Decrpyted: ", decrypt(hw))
+// var hw = encrypt("Some serious stuff")
+// console.log(hw)
+// console.log("Decrpyted: ", decrypt(hw))
