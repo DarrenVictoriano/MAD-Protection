@@ -12,26 +12,32 @@ class Index extends React.Component {
 
     render() {
         return (
+            <div>
+                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                    <Navbar.Brand href="#home">
+                        <img
+                            alt=""
+                            src={require("./Images/madPass2.png")}
+                            width="198"
+                            height="40"
+                            className="d-inline-block align-top"
+                        />
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="ml-auto">
+                            <Nav.Link eventKey="1" href="#deets">How It Works</Nav.Link>
+                            <Nav.Link eventKey="2" href="#memes">Security</Nav.Link>
+                            <Button className="ml-4" variant="success" eventKey="3" href="#memes">Get madPass Free</Button>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
 
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand href="#home">
-                    <img
-                        alt=""
-                        src={require("./Images/madPass2.png")}
-                        width="198"
-                        height="40"
-                        className="d-inline-block align-top"
-                    />
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="ml-auto">
-                        <Nav.Link eventKey="1" href="#deets">How It Works</Nav.Link>
-                        <Nav.Link eventKey="2" href="#memes">Security</Nav.Link>
-                        <Button className="ml-4" variant="success" eventKey="3" href="#memes">Get MAD-Protection Now</Button>
-                    </Nav>
-                </Navbar.Collapse>
-            </Navbar>
+                <div>
+                    Image here
+                </div>
+            </div>
+
 
 
         );
