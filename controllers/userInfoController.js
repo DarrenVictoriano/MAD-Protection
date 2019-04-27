@@ -1,4 +1,5 @@
 const db = require("../models");
+const mad = require("./encryption");
 
 module.exports = {
     findAll: function (req, res) {
