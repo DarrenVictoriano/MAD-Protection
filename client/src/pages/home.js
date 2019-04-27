@@ -39,6 +39,7 @@ class Home extends React.Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
+                
             </div>
         );
     }
