@@ -9,15 +9,16 @@ module.exports = {
             .then(dbUserInfo => {
                 let decrptedData = []
 
-                for (let i in dbUserInfo) {
+                dbUserInfo.forEach(item => {
                     decrptedData.push({
-                        _id: dbUserInfo[i]._id,
-                        firstName: mad.decrypt(dbUserInfo[i].firstName),
-                        lastName: mad.decrypt(dbUserInfo[i].lastName),
-                        email: mad.decrypt(dbUserInfo[i].email),
-                        Password: mad.decrypt(dbUserInfo[i].Password)
+                        _id: item._id,
+                        firstName: mad.decrypt(item.firstName),
+                        lastName: mad.decrypt(item.lastName),
+                        email: mad.decrypt(item.email),
+                        Password: mad.decrypt(item.Password)
                     });
-                }
+                });
+
                 res.json(decrptedData)
             })
             .catch(err => res.status(422).json(err));
