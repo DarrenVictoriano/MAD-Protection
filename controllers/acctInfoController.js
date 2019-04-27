@@ -1,6 +1,6 @@
 // Pulling in the <acctInfo> model from the <models> directory
 // Should I only require the whole directory or be specific?
-const db = require("../models/acctInfo");
+const db = require("../models");
 
 // Defining and exporting methods for acctInfoController
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
         // TODO: Confirm acctInfo collection name
         db.AcctInfo
             // TODO: Not sure on <(req.query)>
-            .findOne(req.query)
+            .find(req.query)
             // TODO: write logic for finding account info by _id 
 
             // TODO: Doublecheck <dbModel> usage
@@ -27,6 +27,30 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    findbyID: function(req, res) {
+        db.AcctInfo
+            .findbyId(req.params.id)
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.json(dbModel));
+    },
+    create: function(req, body) {
+        db.AccountInfo
+            .create(req, body)
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+    update: function(req, res) {
+        db.AccountInfo
+            .findOneAndUpdate( { _id : req.params.id }, req.body )
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+    remove: function(req, res) {
+        db.AccountInfo
+            .findById( { _id : req.params.id })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    }
 
     // TODO: Create UPDATE method
     // TODO: Create REMOVE method
