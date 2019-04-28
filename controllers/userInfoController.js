@@ -5,6 +5,7 @@ module.exports = {
     findAll: function (req, res) {
         db.UserInfo
             .find(req.query)
+            .populate("accountInfo")
             .sort({ lastName: 1 })
             .then(dbUserInfo => {
                 console.log("dbUser: ", dbUserInfo);
@@ -16,7 +17,8 @@ module.exports = {
                         firstName: mad.decrypt(item.firstName),
                         lastName: mad.decrypt(item.lastName),
                         email: mad.decrypt(item.email),
-                        Password: mad.decrypt(item.Password)
+                        Password: mad.decrypt(item.Password),
+                        accountInfo: mad.decryptAccountArr(item.accountInfo)
                     });
                 });
 
@@ -28,14 +30,17 @@ module.exports = {
     findById: function (req, res) {
         db.UserInfo
             .findById(req.params.id)
+            .populate("accountInfo")
             .then(dbUserInfo => {
+                console.log(dbUserInfo);
 
                 let decrptedData = {
                     _id: dbUserInfo._id,
                     firstName: mad.decrypt(dbUserInfo.firstName),
                     lastName: mad.decrypt(dbUserInfo.lastName),
                     email: mad.decrypt(dbUserInfo.email),
-                    Password: mad.decrypt(dbUserInfo.Password)
+                    Password: mad.decrypt(dbUserInfo.Password),
+                    accountInfo: mad.decryptAccountArr(dbUserInfo.accountInfo)
                 }
 
                 res.json(decrptedData);

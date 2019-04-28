@@ -32,7 +32,24 @@ function generatePass(length) {
     console.log(length);
 }
 
-module.exports = { decrypt, encrypt, generatePass };
+function decryptAccountArr(arr) {
+    let decryptedArr = [];
+
+    arr.forEach(item => {
+        decryptedArr.push({
+            _id: item._id,
+            name: decrypt(item.name),
+            username: decrypt(item.username),
+            password: decrypt(item.password),
+            link: decrypt(item.link),
+            notes: decrypt(item.notes)
+        });
+    });
+
+    return decryptedArr;
+};
+
+module.exports = { decrypt, encrypt, generatePass, decryptAccountArr };
 
 // Test
 // var hw = encrypt("Some serious stuff")
