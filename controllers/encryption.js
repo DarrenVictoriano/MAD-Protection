@@ -32,9 +32,26 @@ function generatePass(length) {
     console.log(length);
 }
 
-module.exports = { decrypt, encrypt, generatePass };
+function decryptAccountArr(arr) {
+    let decryptedArr = [];
+
+    arr.forEach(item => {
+        decryptedArr.push({
+            _id: item._id,
+            name: decrypt(item.name),
+            username: decrypt(item.username),
+            password: decrypt(item.password),
+            link: decrypt(item.link),
+            notes: decrypt(item.notes)
+        });
+    });
+
+    return decryptedArr;
+};
+
+module.exports = { decrypt, encrypt, generatePass, decryptAccountArr };
 
 // Test
 // var hw = encrypt("Some serious stuff")
 // console.log(hw)
-// console.log("Decrpyted: ", decrypt(hw))
+// console.log("Decrpyted: ", decrypt("e7f5c9ba690200392eac006cec6dc17e:4b5cfe0a3dece0320c2dd8d01c0efe11138ca88a64e85eae383f8c328b5921d0"));
