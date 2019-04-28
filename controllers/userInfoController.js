@@ -4,20 +4,25 @@ const mad = require("./encryption");
 module.exports = {
     findAll: function (req, res) {
         db.UserInfo
-            .find()
+            .find(req.query)
             .sort({ lastName: 1 })
             .then(dbUserInfo => {
-                let decrptedData = []
+                let decrptedData = [];
 
                 dbUserInfo.forEach(item => {
                     decrptedData.push({
                         _id: item._id,
-                        firstName: mad.decrypt(item.firstName),
-                        lastName: mad.decrypt(item.lastName),
-                        email: mad.decrypt(item.email),
-                        Password: mad.decrypt(item.Password)
+                        firstName: item.firstName,
+                        lastName: item.lastName,
+                        email:item.email,
+                        Password: item.Password
                     });
                 });
+
+              
+                console.log("asdasd");
+                console.log("DECRYPTED " + decrptedData);
+                console.log(typeof decrptedData[0].firstName);
 
                 res.json(decrptedData)
             })
@@ -26,7 +31,18 @@ module.exports = {
     findById: function (req, res) {
         db.UserInfo
             .findById(req.params.id)
-            .then(dbUserInfo => res.json(dbUserInfo))
+            .then(dbUserInfo => {
+
+                let decrptedData = {
+                    _id: dbUserInfo._id,
+                    firstName: mad.decrypt(dbUserInfo.firstName),
+                    lastName: mad.decrypt(dbUserInfo.lastName),
+                    email: mad.decrypt(dbUserInfo.email),
+                    Password: mad.decrypt(dbUserInfo.Password)
+                }
+
+                res.json(decrptedData);
+            })
             .catch(err => res.status(422).json(err));
     },
     create: function (req, res) {
