@@ -40,11 +40,11 @@ class Login extends React.Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <Container>
+                <Container className="mb-5 pb-5">
                     <Row>
                         <Col md={5} className="mt-5">
                             <h1>Join us for free</h1>
-                            <p className="lead">The madPass if forever free, promise just sign up below and see what happens.</p>
+                            <p className="lead">The madPass if forever free, promise. Just sign up below and see what happens.</p>
                             <Form className="mt-3">
                                 <Form.Group controlId="registerEmail">
                                     <Form.Label>Email address</Form.Label>
@@ -70,7 +70,7 @@ class Login extends React.Component {
                                     </Form.Text>
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit">
+                                <Button variant="dark" type="submit">
                                     Sign-up
                                 </Button>
                             </Form>
@@ -82,7 +82,7 @@ class Login extends React.Component {
 
                         <Col md={5} className="mt-5">
                             <h1>Already a member?</h1>
-                            <p className="lead">Well, your a lot cooler than we thought. Login here then.</p>
+                            <p className="lead">Well, your a lot cooler than we thought. Login here to view your vault.</p>
                             <Form className="mt-3">
                                 <Form.Group controlId="signInEmail">
                                     <Form.Label>Email address</Form.Label>
@@ -97,7 +97,7 @@ class Login extends React.Component {
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
 
-                                <Button variant="primary" type="submit">
+                                <Button variant="dark" type="submit">
                                     Login
                                 </Button>
                             </Form>

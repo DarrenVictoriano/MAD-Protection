@@ -8,10 +8,22 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 class Home extends React.Component {
 
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            open: false
+        };
+    }
+
     render() {
+        const { open } = this.state;
+
         return (
             <div>
                 <Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -28,7 +40,13 @@ class Home extends React.Component {
                     </Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="ml-3">
+                            <Nav.Link><i class="fas fa-lock"></i> Passwords</Nav.Link>
+                            <Nav.Link><i class="fas fa-sticky-note"></i> Notes</Nav.Link>
+                            <Nav.Link><i class="fas fa-cog"></i> Account Settings</Nav.Link>
+                        </Nav>
                         <Nav className="ml-auto">
+
                             <InputGroup>
                                 <FormControl
                                     placeholder="Search"
@@ -40,11 +58,18 @@ class Home extends React.Component {
                                 </InputGroup.Append>
                             </InputGroup>
                         </Nav>
+
                     </Navbar.Collapse>
                 </Navbar>
-
-                <Container>
-                    <h1>This is home page</h1>
+                <Container fluid={true}>
+                    <Row>
+                        <Col>
+                            <h1>small display</h1>
+                        </Col>
+                        <Col>
+                            <h1>More info when clicked</h1>
+                        </Col>
+                    </Row>
                 </Container>
 
 
