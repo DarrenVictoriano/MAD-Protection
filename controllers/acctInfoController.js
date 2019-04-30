@@ -72,14 +72,24 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {
+
+        let encryptData = {
+            name: mad.encrypt(req.body.name),
+            username: mad.encrypt(req.body.username),
+            password: mad.encrypt(req.body.password),
+            link: mad.encrypt(req.body.link),
+            notes: mad.encrypt(req.body.notes)
+        }
+
         db.AccountInfo
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .findOneAndUpdate({ _id: req.params.id }, encryptData)
             .then(dbAccountInfo => res.json(dbAccountInfo))
             .catch(err => res.status(422).json(err));
     },
     remove: function (req, res) {
         db.AccountInfo
             .findById({ _id: req.params.id })
+            .then(dbAccount => dbAccount.remove())
             .then(dbAccountInfo => res.json(dbAccountInfo))
             .catch(err => res.status(422).json(err));
     }
