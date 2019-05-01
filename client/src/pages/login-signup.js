@@ -82,7 +82,7 @@ class Login extends React.Component {
 
                         <Col md={5} className="mt-5">
                             <h1>Already a member?</h1>
-                            <p className="lead">Well, your a lot cooler than we thought. Login here to view your vault.</p>
+                            <p className="lead">Well, you're a lot cooler than we thought. Login here to view your vault.</p>
                             <Form className="mt-3">
                                 <Form.Group controlId="signInEmail">
                                     <Form.Label>Email address</Form.Label>

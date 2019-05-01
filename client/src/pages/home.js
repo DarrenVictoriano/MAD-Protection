@@ -7,6 +7,7 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -17,12 +18,12 @@ class Home extends React.Component {
         super(props, context);
 
         this.state = {
-            open: false
+            open: false,
+            user: "tester@example.com"
         };
     }
 
     render() {
-        const { open } = this.state;
 
         return (
             <div>
@@ -43,7 +44,11 @@ class Home extends React.Component {
                         <Nav className="ml-3">
                             <Nav.Link><i class="fas fa-lock"></i> Passwords</Nav.Link>
                             <Nav.Link><i class="fas fa-sticky-note"></i> Notes</Nav.Link>
-                            <Nav.Link><i class="fas fa-cog"></i> Account Settings</Nav.Link>
+                            <NavDropdown title={this.state.user} id="basic-nav-dropdown">
+                                <NavDropdown.Item><i class="fas fa-cog"></i> Account Settings</NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item className="text-danger"><i class="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
+                            </NavDropdown>
                         </Nav>
                         <Nav className="ml-auto">
 
