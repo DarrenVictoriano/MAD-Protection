@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import "./style.css"
+import "./style.css";
 
 class Footer extends React.Component {
 

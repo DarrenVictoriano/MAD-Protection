@@ -40,7 +40,7 @@ class Login extends React.Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <Container className="mb-5 pb-5">
+                <Container className="mb-5 pb-5 body-min">
                     <Row>
                         <Col md={5} className="mt-5">
                             <h1>Join us for free</h1>

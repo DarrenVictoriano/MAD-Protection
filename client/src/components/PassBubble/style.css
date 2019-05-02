@@ -1,0 +1,12 @@
+.bubble-style {
+    width: 350px;
+}
+
+.card-header {
+    background-color:#607d8b; /* #009688 -teal*/
+    color: #eceff1; /* #e0f2f1 */
+}
+
+.card-body {
+    background-color: #cfd8dc; /* #b2dfdb */
+}

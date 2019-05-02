@@ -4,3 +4,11 @@
     background-color:#ccc;
     padding: 0px;
 }
+
+.body-min {
+    min-height: 600px;
+}
+
+.home-body {
+    background-color: #eeeeee;
+}
