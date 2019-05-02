@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import PassBubble from "../components/PassBubble/index";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -66,15 +67,57 @@ class Home extends React.Component {
 
                     </Navbar.Collapse>
                 </Navbar>
-                <Container fluid={true}>
-                    <Row>
-                        <Col>
-                            <h1>small display</h1>
-                        </Col>
-                        <Col>
-                            <h1>More info when clicked</h1>
+                <Container className="body-min">
+                    <Row className="text-center">
+                        <Col className="mt-4">
+                            <div className="card-deck">
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                            </div>
                         </Col>
                     </Row>
+
+                    <Row className="text-center">
+                        <Col className="mt-4">
+                            <div className="card-deck">
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <Row className="text-center">
+                        <Col className="mt-4">
+                            <div className="card-deck">
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <Row className="text-center">
+                        <Col className="mt-4">
+                            <div className="card-deck">
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <Row className="text-center">
+                        <Col className="mt-4">
+                            <div className="card-deck">
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                                <PassBubble name="Amazon" user="test@gmail.com" />
+                            </div>
+                        </Col>
+                    </Row>
+
                 </Container>
 
 
