@@ -12,3 +12,7 @@
 .home-body {
     background-color: #eeeeee;
 }
+
+.btn-circle {
+    border-radius: 100%;
+  }
