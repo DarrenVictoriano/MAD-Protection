@@ -18,7 +18,7 @@ class PassBubble extends React.Component {
 
         return (
 
-            <div className="card bubble-style">
+            <div className="card bubble-style m-3">
                 <div className="card-header p-1">
                     <h5>{this.state.name}</h5>
                 </div>

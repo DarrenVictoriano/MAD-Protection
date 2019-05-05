@@ -23,7 +23,7 @@ module.exports = {
                 });
 
                 console.log("decrypt: ", decrptedData);
-                res.json(decrptedData)
+                res.json(decrptedData);
             })
             .catch(err => res.status(422).json(err));
     },
