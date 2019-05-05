@@ -14,6 +14,36 @@ import "./style.css"
 
 class Login extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loginUser: "",
+            loginPass: "",
+            hideLoginError: "d-none",
+            regEmail: "",
+            hideEmailError: "d-none",
+            regPass: "",
+            regConfirmPass: "",
+            hideRegPassError: "d-none"
+        }
+    }
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleLogin = event => {
+        console.log("login here");
+    }
+
+    handleRegister = event => {
+        console.log("register here");
+    }
+
     render() {
         return (
             <div>
@@ -48,29 +78,44 @@ class Login extends React.Component {
                             <Form className="mt-3">
                                 <Form.Group controlId="registerEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
-                                    <Form.Text className="text-danger">
-                                        Error message here
+                                    <Form.Control
+                                        value={this.state.regEmail}
+                                        onChange={this.handleInputChange}
+                                        name="regEmail"
+                                        type="email"
+                                        placeholder="Enter email" />
+                                    <Form.Text className={`text-danger ${this.state.hideEmailError}`}>
+                                        Email already been used. Please login your account.
                                     </Form.Text>
                                 </Form.Group>
 
                                 <Form.Group controlId="registerPass">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
-                                    <Form.Text className="text-danger">
-                                        Error message here
+                                    <Form.Control
+                                        value={this.state.regPass}
+                                        onChange={this.handleInputChange}
+                                        name="regPass"
+                                        type="password"
+                                        placeholder="Password" />
+                                    <Form.Text className={`text-danger ${this.state.hideRegPassError}`}>
+                                        Password does not match.
                                     </Form.Text>
                                 </Form.Group>
 
                                 <Form.Group controlId="registerPass2">
                                     <Form.Label>Confirm Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Confirm Password" />
-                                    <Form.Text className="text-danger">
-                                        Error message here
-                                    </Form.Text>
+                                    <Form.Control
+                                        value={this.state.regConfirmPass}
+                                        onChange={this.handleInputChange}
+                                        name="regConfirmPass"
+                                        type="password"
+                                        placeholder="Confirm Password" />
                                 </Form.Group>
 
-                                <Button variant="dark" type="submit">
+                                <Button
+                                    onClick={this.handleRegister}
+                                    disabled={!(this.state.regEmail && this.state.regPass && this.state.regConfirmPass)}
+                                    variant="dark" >
                                     Sign-up
                                 </Button>
                             </Form>
@@ -86,18 +131,31 @@ class Login extends React.Component {
                             <Form className="mt-3">
                                 <Form.Group controlId="signInEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
-                                    <Form.Text className={`text-danger ${`d-block`}`}>
+                                    <Form.Control
+                                        value={this.state.loginUser}
+                                        name="loginUser"
+                                        onChange={this.handleInputChange}
+                                        type="email"
+                                        placeholder="Enter email" />
+                                    <Form.Text className={`text-danger ${this.state.hideLoginError}`}>
                                         Incorrect Email/Password
                                 </Form.Text>
                                 </Form.Group>
 
                                 <Form.Group controlId="signInPass">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control
+                                        value={this.state.loginPass}
+                                        name="loginPass"
+                                        onChange={this.handleInputChange}
+                                        type="password"
+                                        placeholder="Password" />
                                 </Form.Group>
 
-                                <Button variant="dark" type="submit">
+                                <Button
+                                    onClick={this.handleLogin}
+                                    disabled={!(this.state.loginUser && this.state.loginPass)}
+                                    variant="dark" >
                                     Login
                                 </Button>
                             </Form>
