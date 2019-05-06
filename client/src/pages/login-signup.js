@@ -2,7 +2,7 @@
 import API from "../utils/API";
 import React from "react";
 import { Link } from "react-router-dom" // change href into links
-// Components Below: 
+// Components Below:
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -38,10 +38,19 @@ class Login extends React.Component {
 
     handleLogin = event => {
         console.log("login here");
+
     }
 
     handleRegister = event => {
-        console.log("register here");
+
+        // show error if password does not match
+        if (this.state.regPass !== this.state.regConfirmPass) {
+            this.setState({
+                hideRegPassError: "d-block"
+            });
+        }
+
+        alert("register here");
     }
 
     render() {
