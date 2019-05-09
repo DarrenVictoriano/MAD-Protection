@@ -15,25 +15,29 @@ module.exports = {
                     });
                 } else {
                     // if user exist in the db return as promise
-                    return bcrypt.compare(req.body.Password, userInfo.Password);
-                }
-            }).then(match => {
-                if (match) {
-                    // if password match then generate a token
-                    const payload = { user: req.body.email };
-                    const options = { expiresIn: '2d', issuer: 'madTeam' };
-                    const secret = process.env.JWT_SECRET;
-                    const generateToken = jwt.sign(payload, secret, options);
+                    bcrypt.compare(req.body.Password, userInfo.Password)
+                        .then(match => {
+                            if (match) {
+                                // if password match then generate a token
+                                const payload = { user: req.body.email };
+                                const options = { expiresIn: '2d', issuer: 'madTeam' };
+                                const secret = process.env.JWT_SECRET;
+                                const generateToken = jwt.sign(payload, secret, options);
 
-                    res.status(401).json({
-                        token: generateToken,
-                        data: userInfo
-                    });
-                } else {
-                    // no match found
-                    res.status(500).json({
-                        error: "incorrect password."
-                    });
+                                res.status(401).json({
+                                    token: generateToken,
+                                    data: userInfo
+                                });
+                            } else {
+                                // no match found
+                                res.status(500).json({
+                                    error: "incorrect password."
+                                });
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                            res.status(500).json(err);
+                        });
                 }
             }).catch(err => {
                 console.log(err);
