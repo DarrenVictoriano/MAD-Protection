@@ -77,8 +77,7 @@ class Home extends React.Component {
                     </Link>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="ml-3">
-
+                        <Nav>
                             <NavDropdown title="Passwords" id="basic-nav-dropdown1">
                                 <NavDropdown.Item><i class="fas fa-briefcase"></i> View Vault</NavDropdown.Item>
                                 <NavDropdown.Divider />
@@ -99,6 +98,8 @@ class Home extends React.Component {
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item className="text-danger"><i class="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
                             </NavDropdown>
+
+
                         </Nav>
                         <Nav className="ml-auto">
                             <InputGroup className="ml-3">
@@ -111,6 +112,7 @@ class Home extends React.Component {
                                     <Button variant="outline-secondary"><i class="fas fa-search"></i></Button>
                                 </InputGroup.Append>
                             </InputGroup>
+
                         </Nav>
 
                     </Navbar.Collapse>

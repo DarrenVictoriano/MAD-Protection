@@ -1,5 +1,5 @@
 const db = require("../models");
-const mad = require("./encryption");
+const mad = require("../utils/encryption");
 
 module.exports = {
     findAll: function (req, res) {
