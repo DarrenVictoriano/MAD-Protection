@@ -1,5 +1,7 @@
+require("dotenv").config();
 const db = require("../models");
-const mad = require("./encryption");
+const mad = require("../utils/encryption");
+const bcrypt = require("bcrypt");
 
 module.exports = {
     findAll: function (req, res) {
@@ -14,10 +16,8 @@ module.exports = {
                 dbUserInfo.forEach(item => {
                     decrptedData.push({
                         _id: item._id,
-                        firstName: mad.decrypt(item.firstName),
-                        lastName: mad.decrypt(item.lastName),
-                        email: mad.decrypt(item.email),
-                        Password: mad.decrypt(item.Password),
+                        email: item.email,
+                        Password: item.Password,
                         accountInfo: mad.decryptAccountArr(item.accountInfo)
                     });
                 });
@@ -48,18 +48,37 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     create: function (req, res) {
+        // make sure email does not exist in DB before creating
+        db.UserInfo.findOne({ email: req.body.email })
+            .then(dbUser => {
+                if (dbUser) {
+                    // if email is found then dont make new user
+                    // send an error
+                    res.json({
+                        error: dbUser.email + " already exist."
+                    });
+                } else {
+                    // if user does not exist yet
+                    // hash the password by returning a bcrypt prmose
+                    return bcrypt.hash(req.body.Password, process.env.SALTBAE);
+                }
+            }).then(hash => {
+                // create a object out of the user email and
+                // the new hashed password
+                let registerUser = {
+                    email: req.body.email,
+                    Password: hash
+                }
+                // save it to the DB by returning a promise
+                return db.UserInfo.create(registerUser);
+            }).then(userDB => {
+                // send it back to client when sucessful
+                res.json(userDB);
+            }).catch(err => {
+                // return an error if not
+                res.status(422).json(err);
+            });
 
-        let encrytedData = {
-            firstName: mad.encrypt(req.body.firstName).toString(),
-            lastName: mad.encrypt(req.body.lastName).toString(),
-            email: mad.encrypt(req.body.email).toString(),
-            Password: mad.encrypt(req.body.Password).toString()
-        };
-
-        db.UserInfo
-            .create(encrytedData)
-            .then(dbUserInfo => res.json(dbUserInfo))
-            .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {
 
