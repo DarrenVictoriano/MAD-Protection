@@ -36,10 +36,8 @@ module.exports = {
 
                 let decrptedData = {
                     _id: dbUserInfo._id,
-                    firstName: mad.decrypt(dbUserInfo.firstName),
-                    lastName: mad.decrypt(dbUserInfo.lastName),
-                    email: mad.decrypt(dbUserInfo.email),
-                    Password: mad.decrypt(dbUserInfo.Password),
+                    email: dbUserInfo.email,
+                    Password: dbUserInfo.Password,
                     accountInfo: mad.decryptAccountArr(dbUserInfo.accountInfo)
                 }
 
@@ -52,6 +50,7 @@ module.exports = {
         db.UserInfo.findOne({ email: req.body.email })
             .then(dbUser => {
                 if (dbUser) {
+                    console.log(dbUser);
                     // if email is found then dont make new user
                     // send an error
                     res.json({
@@ -60,7 +59,7 @@ module.exports = {
                 } else {
                     // if user does not exist yet
                     // hash the password by returning a bcrypt prmose
-                    return bcrypt.hash(req.body.Password, process.env.SALTBAE);
+                    return bcrypt.hash(req.body.Password, 10);
                 }
             }).then(hash => {
                 // create a object out of the user email and
@@ -82,17 +81,18 @@ module.exports = {
     },
     update: function (req, res) {
 
-        let encrytedData = {
-            firstName: mad.encrypt(req.body.firstName).toString(),
-            lastName: mad.encrypt(req.body.lastName).toString(),
-            email: mad.encrypt(req.body.email).toString(),
-            Password: mad.encrypt(req.body.Password).toString()
-        };
+        bcrypt.hash(req.body.Password, 10)
+            .then(hash => {
+                let encrytedData = {
+                    email: req.body.email,
+                    Password: hash
+                };
 
-        db.UserInfo
-            .findOneAndUpdate({ _id: req.params.id }, encrytedData)
+                return db.UserInfo.findOneAndUpdate({ _id: req.params.id }, encrytedData)
+            })
             .then(dbUserInfo => res.json(dbUserInfo))
             .catch(err => res.status(422).json(err));
+
     },
     remove: function (req, res) {
         db.UserInfo
