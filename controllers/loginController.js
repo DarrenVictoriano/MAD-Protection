@@ -20,7 +20,7 @@ module.exports = {
                             if (match) {
                                 // if password match then generate a token
                                 const payload = { user: req.body.email };
-                                const options = { expiresIn: '2d', issuer: 'madTeam' };
+                                const options = { expiresIn: '1h', issuer: 'madTeam' };
                                 const secret = process.env.JWT_SECRET;
                                 const generateToken = jwt.sign(payload, secret, options);
 

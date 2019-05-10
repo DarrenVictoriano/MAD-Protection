@@ -42,15 +42,17 @@ class Login extends React.Component {
     }
 
     handleRegister = event => {
-
+        event.preventDefault();
         // show error if password does not match
         if (this.state.regPass !== this.state.regConfirmPass) {
             this.setState({
                 hideRegPassError: "d-block"
             });
+        } else {
+            // create new user if password match
+
         }
 
-        alert("register here");
     }
 
     render() {

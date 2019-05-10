@@ -5,27 +5,38 @@ const bcrypt = require("bcrypt");
 
 module.exports = {
     findAll: function (req, res) {
-        db.UserInfo
-            .find(req.query)
-            .populate("accountInfo")
-            .sort({ lastName: 1 })
-            .then(dbUserInfo => {
-                console.log("dbUser: ", dbUserInfo);
-                let decrptedData = [];
 
-                dbUserInfo.forEach(item => {
-                    decrptedData.push({
-                        _id: item._id,
-                        email: item.email,
-                        Password: item.Password,
-                        accountInfo: mad.decryptAccountArr(item.accountInfo)
+        const payload = req.decoded;
+        console.log(payload);
+
+        if (payload && payload.user === 'admin') {
+            db.UserInfo
+                .find(req.query)
+                .populate("accountInfo")
+                .sort({ lastName: 1 })
+                .then(dbUserInfo => {
+                    console.log("dbUser: ", dbUserInfo);
+                    let decrptedData = [];
+
+                    dbUserInfo.forEach(item => {
+                        decrptedData.push({
+                            _id: item._id,
+                            email: item.email,
+                            Password: item.Password,
+                            accountInfo: mad.decryptAccountArr(item.accountInfo)
+                        });
                     });
-                });
 
-                console.log("decrypt: ", decrptedData);
-                res.json(decrptedData);
-            })
-            .catch(err => res.status(422).json(err));
+                    console.log("decrypt: ", decrptedData);
+                    res.json(decrptedData);
+                })
+                .catch(err => res.status(422).json(err));
+        } else {
+            res.status(500).json({
+                error: "Admin authentication required."
+            });
+        }
+
     },
     findById: function (req, res) {
         db.UserInfo
