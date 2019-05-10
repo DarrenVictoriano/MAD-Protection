@@ -47,6 +47,23 @@ class Home extends React.Component {
             });
     }
 
+    componentDidUpdate() {
+
+        API.getUserInfo(globalState._id)
+            .then(userInfo => {
+                console.log(userInfo);
+
+                this.setState({
+                    email: userInfo.email,
+                    accountDB: userInfo.accountInfo
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+    }
+
     renderPassBubble = () => {
 
 
@@ -86,16 +103,30 @@ class Home extends React.Component {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav>
                             <NavDropdown title="Passwords" id="basic-nav-dropdown1">
-                                <NavDropdown.Item><i className="fas fa-briefcase"></i> View Vault</NavDropdown.Item>
+
+                                <NavDropdown.Item
+                                    href="/home"
+                                >
+                                    <i className="fas fa-briefcase"></i> View Vault
+                                </NavDropdown.Item>
+
+
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
                                     className="text-danger"
                                     onClick={this.handleShow}
-                                ><i class="fas fa-plus"></i> Add Entry</NavDropdown.Item>
+                                ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title="Notes" id="basic-nav-dropdown2">
-                                <NavDropdown.Item><i className="fas fa-clipboard"></i> View Notes</NavDropdown.Item>
+
+                                <NavDropdown.Item
+                                    href="/notes"
+                                >
+                                    <i className="fas fa-clipboard"></i> View Notes
+                                </NavDropdown.Item>
+
+
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item className="text-danger"><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
