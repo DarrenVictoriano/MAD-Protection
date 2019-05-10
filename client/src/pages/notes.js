@@ -29,6 +29,7 @@ class Notes extends React.Component {
         this.state = {
             open: false,
             user: "tester@example.com",
+            showPassModal: false,
             showNotesModal: false
         };
     }
@@ -41,9 +42,9 @@ class Notes extends React.Component {
 
             arr.push(
                 <div className="d-flex">
-                    <NotesBubble name="Note Title" user="test@gmail.com" />
-                    <NotesBubble name="Note Title" user="test@gmail.com" />
-                    <NotesBubble name="Note Title" user="test@gmail.com" />
+                    <NotesBubble name="Note Title" user="note peek-a-boo" />
+                    <NotesBubble name="Note Title" user="note peek-a-boo" />
+                    <NotesBubble name="Note Title" user="note peek-a-boo" />
                 </div>
             );
         }
@@ -139,39 +140,39 @@ class Notes extends React.Component {
                         <Col>
 
                             <div className="d-flex">
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
 
                             <div className="d-flex">
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
 
                             <div className="d-flex">
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
 
                             <div className="d-flex">
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
 
                             <div className="d-flex">
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
 
                             <div className="d-flex">
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
-                                <NotesBubble name="Note Title" user="test@gmail.com" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
                         </Col>
                     </Row>
@@ -267,7 +268,7 @@ class Notes extends React.Component {
                                     </Form.Group>
                                 </Col>
                             </Row>
-                            
+
                         </Container>
 
                     </Modal.Body>
