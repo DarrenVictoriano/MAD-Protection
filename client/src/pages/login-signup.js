@@ -46,11 +46,11 @@ class Login extends React.Component {
         console.log(loginCredential);
 
         API.loginUser(loginCredential)
-            .then(data => {
-                console.log(data);
+            .then(userInfoDB => {
+                console.log(userInfoDB);
 
-                globalState.token = data.token;
-                globalState._id = data.data._id;
+                globalState.token = userInfoDB.token;
+                globalState._id = userInfoDB.data._id;
                 window.location.assign('/home');
 
             }).catch(err => {

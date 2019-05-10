@@ -47,6 +47,23 @@ class Home extends React.Component {
             });
     }
 
+    componentDidUpdate() {
+
+        API.getUserInfo(globalState._id)
+            .then(userInfo => {
+                console.log(userInfo);
+
+                this.setState({
+                    email: userInfo.email,
+                    accountDB: userInfo.accountInfo
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+    }
+
     renderPassBubble = () => {
 
 
@@ -91,7 +108,7 @@ class Home extends React.Component {
                                 <NavDropdown.Item
                                     className="text-danger"
                                     onClick={this.handleShow}
-                                ><i class="fas fa-plus"></i> Add Entry</NavDropdown.Item>
+                                ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title="Notes" id="basic-nav-dropdown2">
