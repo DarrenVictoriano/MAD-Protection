@@ -7,8 +7,8 @@ export default {
         return axios.post("/api/login/", loginCred);
     },
     // Gets the book with the given id
-    getBook: function (id) {
-        return axios.get("/api/books/" + id);
+    getUserInfo: function (userID) {
+        return axios.get("/api/user/" + userID);
     },
     // Deletes the book with the given id
     deleteBook: function (id) {

@@ -1,6 +1,7 @@
 import API from "../utils/API";
 import React from "react";
 import { Link } from "react-router-dom";
+import globalState from "../global-state";
 // Component below
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -25,30 +26,36 @@ class Home extends React.Component {
 
         this.state = {
             open: false,
-            user: "tester@example.com",
-            showModal: false
+            showModal: false,
+            email: null,
+            accountDB: null
         };
+    }
+    componentDidMount() {
+        // get UserInfo including all accounts
+        API.getUserInfo(globalState._id)
+            .then(userInfo => {
+                console.log(userInfo);
+
+                this.setState({
+                    email: userInfo.email,
+                    accountDB: userInfo.accountInfo
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     renderPassBubble = () => {
-        let arr = [''];
-        let sampleID = ["1", "2", "3", "4", "5", "6", "7", "8"];
-
-        for (let i = 0; i < sampleID.length; i += 3) {
-
-            arr.push(
-                <div className="d-flex">
-                    <PassBubble name="Amazon" user="test@gmail.com" />
-                    <PassBubble name="Amazon" user="test@gmail.com" />
-                    <PassBubble name="Amazon" user="test@gmail.com" />
-                </div>
-            );
-        }
 
 
+    }
 
-        return arr;
-
+    handleLogout = event => {
+        globalState.token = null;
+        globalState._id = null;
+        window.location.assign('/');
     }
 
     handleClose() {
@@ -93,10 +100,12 @@ class Home extends React.Component {
                                 <NavDropdown.Item className="text-danger"><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
-                            <NavDropdown title={this.state.user} id="basic-nav-dropdown3">
+                            <NavDropdown title={this.state.email} id="basic-nav-dropdown3">
                                 <NavDropdown.Item><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item className="text-danger"><i className="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
+                                <NavDropdown.Item
+                                    onClick={this.handleLogout}
+                                    className="text-danger"><i className="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
                             </NavDropdown>
 
 
