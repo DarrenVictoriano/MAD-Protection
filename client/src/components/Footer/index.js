@@ -56,7 +56,7 @@ class Footer extends React.Component {
 
                     <p className="mt-4 mb-0">Find us on</p>
                     <Link to="/">
-                        <h1 className="text-light"><i class="fab fa-github"></i></h1>
+                        <h1 className="text-light"><i className="fab fa-github"></i></h1>
                     </Link>
                 </Container>
             </div>

@@ -11,6 +11,7 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./style.css"
+import globalState from '../global-state';
 
 class Login extends React.Component {
 
@@ -37,7 +38,29 @@ class Login extends React.Component {
     }
 
     handleLogin = event => {
-        console.log("login here");
+        let loginCredential = {
+            email: this.state.loginUser,
+            Password: this.state.loginPass
+        }
+
+        console.log(loginCredential);
+
+        API.loginUser(loginCredential)
+            .then(data => {
+
+                console.log(data);
+
+                globalState.token = data.token;
+                globalState._id = data.data._id;
+                window.location.assign('/home');
+            }).catch(err => {
+                this.setState({
+                    hideLoginError: "d-block",
+                    loginUser: "",
+                    loginPass: ""
+                });
+                console.log(err);
+            });
 
     }
 

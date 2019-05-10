@@ -5,43 +5,46 @@ const bcrypt = require("bcrypt");
 
 module.exports = {
     login: function (req, res) {
+        let userInfo = null;
 
         db.UserInfo.findOne({ email: req.body.email })
-            .then(userInfo => {
+            .then(dbUserInfo => {
+                userInfo = dbUserInfo;
+
                 if (!userInfo) {
                     // no user found
-                    res.status(500).json({
-                        error: "no user found"
-                    });
+                    throw {
+                        status: 401,
+                        message: "no user found"
+                    };
                 } else {
                     // if user exist in the db return as promise
-                    bcrypt.compare(req.body.Password, userInfo.Password)
-                        .then(match => {
-                            if (match) {
-                                // if password match then generate a token
-                                const payload = { user: req.body.email };
-                                const options = { expiresIn: '1h', issuer: 'madTeam' };
-                                const secret = process.env.JWT_SECRET;
-                                const generateToken = jwt.sign(payload, secret, options);
-
-                                res.status(401).json({
-                                    token: generateToken,
-                                    data: userInfo
-                                });
-                            } else {
-                                // no match found
-                                res.status(500).json({
-                                    error: "incorrect password."
-                                });
-                            }
-                        }).catch(err => {
-                            console.log(err);
-                            res.status(500).json(err);
-                        });
+                    return bcrypt.compare(req.body.Password, userInfo.Password)
                 }
-            }).catch(err => {
+            })
+            .then(match => {
+                if (match) {
+                    // if password match then generate a token
+                    const payload = { user: req.body.email };
+                    const options = { expiresIn: '1h', issuer: 'madTeam' };
+                    const secret = process.env.JWT_SECRET;
+                    const generateToken = jwt.sign(payload, secret, options);
+
+                    res.json({
+                        token: generateToken,
+                        data: userInfo
+                    });
+                } else {
+                    // no match found
+                    throw {
+                        status: 401,
+                        message: "incorrect password."
+                    };
+                }
+            })
+            .catch(err => {
                 console.log(err);
-                res.status(500).json(err);
+                res.status(err.status).json(err.message);
             });
     },
     logout: function (req, res) {
