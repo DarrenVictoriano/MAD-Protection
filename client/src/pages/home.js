@@ -79,7 +79,7 @@ class Home extends React.Component {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav>
                             <NavDropdown title="Passwords" id="basic-nav-dropdown1">
-                                <NavDropdown.Item><i class="fas fa-briefcase"></i> View Vault</NavDropdown.Item>
+                                <NavDropdown.Item><i className="fas fa-briefcase"></i> View Vault</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
                                     className="text-danger"
@@ -88,15 +88,15 @@ class Home extends React.Component {
                             </NavDropdown>
 
                             <NavDropdown title="Notes" id="basic-nav-dropdown2">
-                                <NavDropdown.Item><i class="fas fa-clipboard"></i> View Notes</NavDropdown.Item>
+                                <NavDropdown.Item><i className="fas fa-clipboard"></i> View Notes</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item className="text-danger"><i class="fas fa-plus"></i> Add Entry</NavDropdown.Item>
+                                <NavDropdown.Item className="text-danger"><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title={this.state.user} id="basic-nav-dropdown3">
-                                <NavDropdown.Item><i class="fas fa-cog"></i> Account Settings</NavDropdown.Item>
+                                <NavDropdown.Item><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item className="text-danger"><i class="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
+                                <NavDropdown.Item className="text-danger"><i className="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
                             </NavDropdown>
 
 
@@ -109,7 +109,7 @@ class Home extends React.Component {
                                     aria-describedby="basic-addon2"
                                 />
                                 <InputGroup.Append>
-                                    <Button variant="outline-secondary"><i class="fas fa-search"></i></Button>
+                                    <Button variant="outline-secondary"><i className="fas fa-search"></i></Button>
                                 </InputGroup.Append>
                             </InputGroup>
 

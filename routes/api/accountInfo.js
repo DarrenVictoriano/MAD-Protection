@@ -1,13 +1,14 @@
 const router = require("express").Router();
 const accountInfoController = require("../../controllers/acctInfoController");
+const validateToken = require("../../utils/validateToken").validateToken;
 
 router.route("/")
-    .get(accountInfoController.findAll); // admin protected
+    .get(validateToken, accountInfoController.findAll); // protected
 
 router.route("/:id")
-    .post(accountInfoController.create) // protected
-    .get(accountInfoController.findbyID) // protected
-    .put(accountInfoController.update) // protected
-    .delete(accountInfoController.remove); // protected
+    .post(validateToken, accountInfoController.create) // protected
+    .get(validateToken, accountInfoController.findbyID) // protected
+    .put(validateToken, accountInfoController.update) // protected
+    .delete(validateToken, accountInfoController.remove); // protected
 
 module.exports = router;

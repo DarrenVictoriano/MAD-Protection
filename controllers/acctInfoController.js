@@ -3,6 +3,7 @@ const mad = require("../utils/encryption");
 
 module.exports = {
     findAll: function (req, res) {
+
         db.AccountInfo
             .find(req.query)
             .then(dbAccountInfo => {

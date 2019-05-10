@@ -5,7 +5,7 @@
 ## Login
 ```
 /api/login/
-    .post - create new users, requires email and password as body
+    .post - login requires email and password as body
     .get - logout
 ```
 
