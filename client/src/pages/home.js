@@ -103,11 +103,13 @@ class Home extends React.Component {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav>
                             <NavDropdown title="Passwords" id="basic-nav-dropdown1">
-                                <Link to="/home">
-                                    <NavDropdown.Item>
-                                        <i className="fas fa-briefcase"></i> View Vault
-                                        </NavDropdown.Item>
-                                </Link>
+
+                                <NavDropdown.Item
+                                    href="/home"
+                                >
+                                    <i className="fas fa-briefcase"></i> View Vault
+                                </NavDropdown.Item>
+
 
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
@@ -117,11 +119,13 @@ class Home extends React.Component {
                             </NavDropdown>
 
                             <NavDropdown title="Notes" id="basic-nav-dropdown2">
-                                <Link to="/notes">
-                                    <NavDropdown.Item>
-                                        <i className="fas fa-clipboard"></i> View Notes
+
+                                <NavDropdown.Item
+                                    href="/notes"
+                                >
+                                    <i className="fas fa-clipboard"></i> View Notes
                                 </NavDropdown.Item>
-                                </Link>
+
 
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item className="text-danger"><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
