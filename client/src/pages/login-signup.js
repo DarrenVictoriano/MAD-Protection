@@ -47,12 +47,12 @@ class Login extends React.Component {
 
         API.loginUser(loginCredential)
             .then(data => {
-
                 console.log(data);
 
                 globalState.token = data.token;
                 globalState._id = data.data._id;
                 window.location.assign('/home');
+
             }).catch(err => {
                 this.setState({
                     hideLoginError: "d-block",
