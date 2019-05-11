@@ -11,7 +11,6 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./style.css"
-import globalState from '../global-state';
 
 class Login extends React.Component {
 
@@ -26,7 +25,7 @@ class Login extends React.Component {
             hideEmailError: "d-none",
             regPass: "",
             regConfirmPass: "",
-            hideRegPassError: "d-none"
+            hideRegPassError: "d-none",
         }
     }
 
@@ -46,12 +45,18 @@ class Login extends React.Component {
         console.log(loginCredential);
 
         API.loginUser(loginCredential)
-            .then(data => {
-                console.log(data);
+            .then(userInfoDB => {
+                console.log(userInfoDB.data);
+                console.log(userInfoDB.data.token);
+                console.log(userInfoDB.data.data._id);
+                console.log(userInfoDB.data.data.accountInfo);
 
-                globalState.token = data.token;
-                globalState._id = data.data._id;
-                window.location.assign('/home');
+                this.props.setToken(userInfoDB.data.token);
+                this.props.setUserID(userInfoDB.data.data._id);
+
+                this.props.history.push("/home");
+
+                console.log("this is the userID from App State ", this.props.getUserID);
 
             }).catch(err => {
                 this.setState({

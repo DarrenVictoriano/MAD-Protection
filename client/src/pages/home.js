@@ -1,7 +1,6 @@
 import API from "../utils/API";
 import React from "react";
 import { Link } from "react-router-dom";
-import globalState from "../global-state";
 // Component below
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -18,8 +17,8 @@ import Col from "react-bootstrap/Col";
 
 class Home extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -27,19 +26,26 @@ class Home extends React.Component {
         this.state = {
             open: false,
             showModal: false,
+            userID: null,
             email: null,
             accountDB: null
         };
     }
     componentDidMount() {
+        console.log(this.props.getUserID);
+        console.log(this.props.getToken);
         // get UserInfo including all accounts
-        API.getUserInfo(globalState._id)
+        API.getUserInfo(this.props.getUserID, {
+            headers: {
+                'Authorization': "Bearer " + this.props.getToken
+            }
+        })
             .then(userInfo => {
-                console.log(userInfo);
+                console.log(userInfo.data);
 
                 this.setState({
-                    email: userInfo.email,
-                    accountDB: userInfo.accountInfo
+                    email: userInfo.data.email,
+                    accountDB: userInfo.data.accountInfo
                 });
             })
             .catch(err => {
@@ -53,8 +59,6 @@ class Home extends React.Component {
     }
 
     handleLogout = event => {
-        globalState.token = null;
-        globalState._id = null;
         window.location.assign('/');
     }
 
@@ -86,16 +90,30 @@ class Home extends React.Component {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav>
                             <NavDropdown title="Passwords" id="basic-nav-dropdown1">
-                                <NavDropdown.Item><i className="fas fa-briefcase"></i> View Vault</NavDropdown.Item>
+
+                                <NavDropdown.Item
+                                    href="/home"
+                                >
+                                    <i className="fas fa-briefcase"></i> View Vault
+                                </NavDropdown.Item>
+
+
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
                                     className="text-danger"
                                     onClick={this.handleShow}
-                                ><i class="fas fa-plus"></i> Add Entry</NavDropdown.Item>
+                                ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title="Notes" id="basic-nav-dropdown2">
-                                <NavDropdown.Item><i className="fas fa-clipboard"></i> View Notes</NavDropdown.Item>
+
+                                <NavDropdown.Item
+                                    href="/notes"
+                                >
+                                    <i className="fas fa-clipboard"></i> View Notes
+                                </NavDropdown.Item>
+
+
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item className="text-danger"><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
