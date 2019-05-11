@@ -25,16 +25,12 @@ class NotesBubble extends React.Component {
                 <div className="card-body p-2">
                     <p className="card-text mb-1">{this.state.user}</p>
 
-                    <Button className="btn btn-light py-0 px-2 m-1">
+                    <Button onClick={() => this.props.onClick()} className="btn btn-light py-0 px-2 m-1">
                         <small className="p-0 m-0">
                             <i className="fas fa-eye"></i> View
                         </small>
                     </Button>
-                    <Button className="btn btn-light py-0 px-2 m-1">
-                    <small className="p-0 m-0">
-                        <i className="fas fa-eye"></i> Edit
-                    </small>
-                </Button>
+    
                 </div>
             </div>
 
