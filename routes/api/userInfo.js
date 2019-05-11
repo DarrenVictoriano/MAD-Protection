@@ -4,7 +4,7 @@ const validateToken = require("../../utils/validateToken").validateToken;
 
 router.route("/")
     .get(validateToken, userInfoController.findAll) // admin protected
-    .post(validateToken, userInfoController.create); // protected
+    .post(userInfoController.create); // not protected
 
 router.route("/:id")
     .get(validateToken, userInfoController.findById) // protected

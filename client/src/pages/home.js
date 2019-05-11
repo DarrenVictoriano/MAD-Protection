@@ -1,7 +1,6 @@
 import API from "../utils/API";
 import React from "react";
 import { Link } from "react-router-dom";
-import globalState from "../global-state";
 // Component below
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -18,8 +17,8 @@ import Col from "react-bootstrap/Col";
 
 class Home extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
@@ -27,41 +26,31 @@ class Home extends React.Component {
         this.state = {
             open: false,
             showModal: false,
+            userID: null,
             email: null,
             accountDB: null
         };
     }
     componentDidMount() {
+        console.log(this.props.getUserID);
+        console.log(this.props.getToken);
         // get UserInfo including all accounts
-        API.getUserInfo(globalState._id)
+        API.getUserInfo(this.props.getUserID, {
+            headers: {
+                'Authorization': "Bearer " + this.props.getToken
+            }
+        })
             .then(userInfo => {
-                console.log(userInfo);
+                console.log(userInfo.data);
 
                 this.setState({
-                    email: userInfo.email,
-                    accountDB: userInfo.accountInfo
+                    email: userInfo.data.email,
+                    accountDB: userInfo.data.accountInfo
                 });
             })
             .catch(err => {
                 console.log(err);
             });
-    }
-
-    componentDidUpdate() {
-
-        API.getUserInfo(globalState._id)
-            .then(userInfo => {
-                console.log(userInfo);
-
-                this.setState({
-                    email: userInfo.email,
-                    accountDB: userInfo.accountInfo
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            });
-
     }
 
     renderPassBubble = () => {
@@ -70,8 +59,6 @@ class Home extends React.Component {
     }
 
     handleLogout = event => {
-        globalState.token = null;
-        globalState._id = null;
         window.location.assign('/');
     }
 
