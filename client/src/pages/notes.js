@@ -26,15 +26,15 @@ class Notes extends React.Component {
         this.handleShowNotes = this.handleShowNotes.bind(this);
         this.handleCloseNotes = this.handleCloseNotes.bind(this);
 
-        this.handleShowUpdateNote = this.handleShowUpdateNote.bind(this);
+        this.handleshowUpNoteModal = this.handleshowUpNoteModal.bind(this);
         this.handleCloseUpdateNote = this.handleCloseUpdateNote.bind(this);
 
         this.state = {
             open: false,
             user: "tester@example.com",
-            showPassModal: false,
-            showNotesModal: false,
-            showUpdateNote: false
+            showAddPassModal: false,
+            showAddNoteModal: false,
+            showUpNoteModal: false
         };
     }
 
@@ -60,28 +60,28 @@ class Notes extends React.Component {
     }
 
     handleClosePass() {
-        this.setState({ showPassModal: false });
+        this.setState({ showAddPassModal: false });
     }
 
     handleShowPass() {
-        this.setState({ showPassModal: true });
+        this.setState({ showAddPassModal: true });
     }
 
     handleCloseNotes() {
-        this.setState({ showNotesModal: false });
+        this.setState({ showAddNoteModal: false });
     }
 
     handleShowNotes() {
-        this.setState({ showNotesModal: true });
+        this.setState({ showAddNoteModal: true });
     }
 
-    handleShowUpdateNote() {
+    handleshowUpNoteModal() {
         console.log("shit");
-        this.setState({ showUpdateNote: true });
+        this.setState({ showUpNoteModal: true });
     }
 
     handleCloseUpdateNote() {
-        this.setState({ showUpdateNote: false });
+        this.setState({ showUpNoteModal: false });
     }
 
 
@@ -155,7 +155,7 @@ class Notes extends React.Component {
                         <Col>
 
                             <div className="d-flex">
-                                <NotesBubble onClick={this.handleShowUpdateNote} name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble onClick={this.handleshowUpNoteModal} name="Note Title" user="note peek-a-boo" />
                                 <NotesBubble name="Note Title" user="note peek-a-boo" />
                                 <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
@@ -194,7 +194,7 @@ class Notes extends React.Component {
 
                 </Container>
 
-                <Modal centered size="lg" show={this.state.showPassModal} onHide={this.handleClosePass}>
+                <Modal centered size="lg" show={this.state.showAddPassModal} onHide={this.handleClosePass}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add Password</Modal.Title>
                     </Modal.Header>
@@ -256,7 +256,7 @@ class Notes extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Modal centered size="lg" show={this.state.showNotesModal} onHide={this.handleCloseNotes}>
+                <Modal centered size="lg" show={this.state.showAddNoteModal} onHide={this.handleCloseNotes}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add New Note</Modal.Title>
                     </Modal.Header>
@@ -297,7 +297,7 @@ class Notes extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Modal centered size="lg" show={this.state.showUpdateNote} onHide={this.handleCloseUpdateNote}>
+                <Modal centered size="lg" show={this.state.showUpNoteModal} onHide={this.handleCloseUpdateNote}>
                     <Modal.Header closeButton>
                         <Modal.Title>Update Note</Modal.Title>
                     </Modal.Header>
