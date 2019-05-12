@@ -7,7 +7,7 @@ module.exports = {
     findAll: function (req, res) {
 
         const payload = req.decoded;
-        console.log(payload);
+        //console.log(payload);
 
         if (payload && payload.user === 'admin') {
             db.UserInfo
@@ -15,7 +15,7 @@ module.exports = {
                 .populate("accountInfo")
                 .sort({ lastName: 1 })
                 .then(dbUserInfo => {
-                    console.log("dbUser: ", dbUserInfo);
+                    //console.log("dbUser: ", dbUserInfo);
                     let decrptedData = [];
 
                     dbUserInfo.forEach(item => {
@@ -27,7 +27,7 @@ module.exports = {
                         });
                     });
 
-                    console.log("decrypt: ", decrptedData);
+                    //console.log("decrypt: ", decrptedData);
                     res.json(decrptedData);
                 })
                 .catch(err => res.status(422).json(err));
@@ -43,7 +43,7 @@ module.exports = {
             .findById(req.params.id)
             .populate("accountInfo")
             .then(dbUserInfo => {
-                console.log(dbUserInfo);
+                //console.log(dbUserInfo);
 
                 let decrptedData = {
                     _id: dbUserInfo._id,
@@ -61,10 +61,10 @@ module.exports = {
         db.UserInfo.findOne({ email: req.body.email })
             .then(dbUser => {
                 if (dbUser) {
-                    console.log(dbUser);
+                    //console.log(dbUser);
                     // if email is found then dont make new user
                     // send an error
-                    res.json({
+                    res.status(401).json({
                         error: dbUser.email + " already exist."
                     });
                 } else {

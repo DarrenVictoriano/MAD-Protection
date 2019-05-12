@@ -5,7 +5,7 @@ import validate from "../../utils/validateRoute";
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
 
-        props.token === true
+        Component.token === true
             ? <Component {...props} />
             : <Redirect to={{
                 pathname: '/404',
