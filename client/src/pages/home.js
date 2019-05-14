@@ -40,9 +40,8 @@ class Home extends React.Component {
             showAddNoteModal: false,
         };
     }
-    componentDidMount() {
-        console.log(this.props.getUserID);
-        console.log(this.props.getToken);
+
+    getUserInfoAccounts = () => {
         // get UserInfo including all accounts
         API.getUserInfo(this.props.getUserID, {
             headers: {
@@ -50,7 +49,6 @@ class Home extends React.Component {
             }
         })
             .then(userInfo => {
-                console.log(userInfo.data);
 
                 this.setState({
                     email: userInfo.data.email,
@@ -58,9 +56,24 @@ class Home extends React.Component {
                 });
             })
             .catch(err => {
+                // this means token is invalid or expired
+                // will reroute to a relogin page.
                 console.log(err);
+
+                // change the route to the re-login page
+                this.props.history.push("/relog");
             });
     }
+
+    componentDidMount() {
+        this.getUserInfoAccounts();
+
+    }
+
+    // API call keeps running in the background
+    // componentDidUpdate() {
+    //     this.getUserInfoAccounts();
+    // }
 
     renderPassBubble = () => {
 

@@ -42,21 +42,13 @@ class Login extends React.Component {
             Password: this.state.loginPass
         }
 
-        console.log(loginCredential);
-
         API.loginUser(loginCredential)
             .then(userInfoDB => {
-                console.log(userInfoDB.data);
-                console.log(userInfoDB.data.token);
-                console.log(userInfoDB.data.data._id);
-                console.log(userInfoDB.data.data.accountInfo);
 
                 this.props.setToken(userInfoDB.data.token);
                 this.props.setUserID(userInfoDB.data.data._id);
 
                 this.props.history.push("/home");
-
-                console.log("this is the userID from App State ", this.props.getUserID);
 
             }).catch(err => {
                 this.setState({
@@ -74,11 +66,44 @@ class Login extends React.Component {
         // show error if password does not match
         if (this.state.regPass !== this.state.regConfirmPass) {
             this.setState({
-                hideRegPassError: "d-block"
+                regEmail: "",
+                regPass: "",
+                regConfirmPass: "",
+                hideRegPassError: "d-block",
             });
         } else {
             // create new user if password match
+            API.createUser({
+                email: this.state.regEmail,
+                Password: this.state.regPass
+            })
+                .then(newUserData => {
+                    console.log(newUserData.data);
 
+                    let newUserLogin = {
+                        email: newUserData.data.email,
+                        Password: this.state.regPass
+                    }
+
+                    return API.loginUser(newUserLogin);
+
+                })
+                .then(userInfoDB => {
+
+                    this.props.setToken(userInfoDB.data.token);
+                    this.props.setUserID(userInfoDB.data.data._id);
+
+                    this.props.history.push("/home");
+
+                }).catch(err => {
+                    this.setState({
+                        hideEmailError: "d-block",
+                        regEmail: "",
+                        regPass: "",
+                        regConfirmPass: ""
+                    });
+                    console.log(err);
+                });
         }
 
     }
