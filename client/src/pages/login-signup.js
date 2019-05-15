@@ -48,6 +48,9 @@ class Login extends React.Component {
                 this.props.setToken(userInfoDB.data.token);
                 this.props.setUserID(userInfoDB.data.data._id);
 
+                localStorage.setItem('token', userInfoDB.data.token);
+                localStorage.setItem('userID', userInfoDB.data.data._id);
+
                 this.props.history.push("/home");
 
             }).catch(err => {
@@ -58,7 +61,6 @@ class Login extends React.Component {
                 });
                 console.log(err);
             });
-
     }
 
     handleRegister = event => {

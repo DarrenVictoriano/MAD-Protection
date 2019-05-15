@@ -30,8 +30,11 @@ class Notes extends React.Component {
         this.handleCloseUpdateNote = this.handleCloseUpdateNote.bind(this);
 
         this.state = {
+            userID: null,
+            email: null,
+            accountDB: [],
+
             open: false,
-            user: "tester@example.com",
             showAddPassModal: false,
             showAddNoteModal: false,
             showUpNoteModal: false
@@ -39,23 +42,27 @@ class Notes extends React.Component {
     }
 
     renderNotesBubble = () => {
-        let arr = [''];
-        let sampleID = ["1", "2", "3", "4", "5", "6", "7", "8"];
+        const accounts = this.state.accountDB;
+        console.log(accounts[0]);
 
-        for (let i = 0; i < sampleID.length; i += 3) {
-
-            arr.push(
-                <div className="d-flex">
-                    <NotesBubble name="Note Title" user="note peek-a-boo" />
-                    <NotesBubble name="Note Title" user="note peek-a-boo" />
-                    <NotesBubble name="Note Title" user="note peek-a-boo" />
-                </div>
-            );
+        let groupedAccounts = [];
+        for (let i = 0; i < accounts.length; ++i) {
+            let j = Math.floor(i / 3);
+            if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
+            groupedAccounts[j].push(accounts[i]);
         }
 
-
-
-        return arr;
+        return (
+            <Col>
+                {groupedAccounts.map(accountGroup => (
+                    <div className="d-flex" >
+                        <NotesBubble name={accountGroup[0].name} user={accountGroup[0].username} />
+                        {accountGroup.length > 1 && <NotesBubble name={accountGroup[1].name} user={accountGroup[1].username} />}
+                        {accountGroup.length > 2 && <NotesBubble name={accountGroup[2].name} user={accountGroup[2].username} />}
+                    </div >
+                ))}
+            </Col>
+        );
 
     }
 
@@ -84,6 +91,49 @@ class Notes extends React.Component {
         this.setState({ showUpNoteModal: false });
     }
 
+    handleLogout = event => {
+        localStorage.setItem('token', null);
+        localStorage.setItem('userID', null);
+        window.location.assign('/');
+    }
+
+    getUserInfoAccounts = () => {
+        // get UserInfo including all accounts
+        API.getUserInfo(this.props.getUserID, {
+            headers: {
+                'Authorization': "Bearer " + localStorage.getItem('token')
+            }
+        })
+            .then(userInfo => {
+
+                this.setState({
+                    email: userInfo.data.email,
+                    accountDB: userInfo.data.accountInfo
+                });
+            })
+            .catch(err => {
+                // this means token is invalid or expired
+                // will reroute to a relogin page.
+                console.log(err);
+
+                // change the route to the re-login page
+                this.props.history.push("/relog");
+            });
+    }
+
+    componentDidMount() {
+
+        this.getUserInfoAccounts();
+
+    }
+
+    // API call keeps running in the background
+    componentDidUpdate() {
+
+        this.getUserInfoAccounts();
+
+    }
+
 
 
     render() {
@@ -106,27 +156,40 @@ class Notes extends React.Component {
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav>
                             <NavDropdown title="Passwords" id="basic-nav-dropdown1">
-                                <NavDropdown.Item><i className="fas fa-briefcase"></i> View Vault</NavDropdown.Item>
+
+                                <NavDropdown.Item
+                                    href="/home"
+                                >
+                                    <i className="fas fa-briefcase"></i> View Vault
+                                </NavDropdown.Item>
+
+
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
                                     className="text-danger"
-                                    onClick={this.handleShowPass}
+                                    onClick={this.handleShowAddPassMod}
                                 ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title="Notes" id="basic-nav-dropdown2">
-                                <NavDropdown.Item><i className="fas fa-clipboard"></i> View Notes</NavDropdown.Item>
+
+                                <NavDropdown.Item
+                                    href="/notes"
+                                >
+                                    <i className="fas fa-clipboard"></i> View Notes
+                                </NavDropdown.Item>
+
+
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item 
-                                    className="text-danger"
-                                    onClick={this.handleShowNotes}
-                                ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
+                                <NavDropdown.Item className="text-danger" onClick={this.handleShowNotes}><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
-                            <NavDropdown title={this.state.user} id="basic-nav-dropdown3">
+                            <NavDropdown title={this.state.email} id="basic-nav-dropdown3">
                                 <NavDropdown.Item><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item className="text-danger"><i className="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
+                                <NavDropdown.Item
+                                    onClick={this.handleLogout}
+                                    className="text-danger"><i className="fas fa-sign-out-alt"></i> Logout</NavDropdown.Item>
                             </NavDropdown>
 
 
@@ -272,7 +335,7 @@ class Notes extends React.Component {
                                             <Form.Control type="text" />
                                         </Form.Group>
                                     </Form>
-                                </Col>                                
+                                </Col>
                             </Row>
 
                             <Row>
@@ -313,7 +376,7 @@ class Notes extends React.Component {
                                             <Form.Control type="text" />
                                         </Form.Group>
                                     </Form>
-                                </Col>                                
+                                </Col>
                             </Row>
 
                             <Row>
