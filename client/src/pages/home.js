@@ -63,28 +63,22 @@ class Home extends React.Component {
                 // will reroute to a relogin page.
                 console.log(err);
 
-
+                // change the route to the re-login page
+                this.props.history.push("/relog");
             });
     }
 
     componentDidMount() {
-        if (localStorage.getItem('token')) {
-            this.getUserInfoAccounts();
-        } else {
-            // change the route to the re-login page
-            this.props.history.push("/relog");
-        }
+
+        this.getUserInfoAccounts();
 
     }
 
     // API call keeps running in the background
     componentDidUpdate() {
-        if (localStorage.getItem('token')) {
-            this.getUserInfoAccounts();
-        } else {
-            // change the route to the re-login page
-            this.props.history.push("/relog");
-        }
+
+        this.getUserInfoAccounts();
+
     }
 
     renderPassBubble = () => {
@@ -102,9 +96,22 @@ class Home extends React.Component {
             <Col>
                 {groupedAccounts.map(accountGroup => (
                     <div className="d-flex" >
-                        <PassBubble name={accountGroup[0].name} user={accountGroup[0].username} />
-                        {accountGroup.length > 1 && <PassBubble name={accountGroup[1].name} user={accountGroup[1].username} />}
-                        {accountGroup.length > 2 && <PassBubble name={accountGroup[2].name} user={accountGroup[2].username} />}
+                        <PassBubble
+                            name={accountGroup[0].name}
+                            user={accountGroup[0].username}
+                            userID={accountGroup[0]._id}
+                        />
+
+                        {accountGroup.length > 1 && <PassBubble
+                            name={accountGroup[1].name}
+                            user={accountGroup[1].username}
+                            userID={accountGroup[1]._id}
+                        />}
+                        {accountGroup.length > 2 && <PassBubble
+                            name={accountGroup[2].name}
+                            user={accountGroup[2].username}
+                            userID={accountGroup[2]._id}
+                        />}
                     </div >
                 ))}
             </Col>
@@ -113,6 +120,7 @@ class Home extends React.Component {
 
     handleLogout = event => {
         localStorage.setItem('token', null);
+        localStorage.setItem('userID', null);
         window.location.assign('/');
     }
 

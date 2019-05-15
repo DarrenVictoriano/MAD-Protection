@@ -18,8 +18,8 @@ class App extends React.Component {
         super(props)
 
         this.state = {
-            token: "nooo",
-            userID: "nooo",
+            token: localStorage.getItem('token'),
+            userID: localStorage.getItem('userID'),
             userData: "noooo"
         }
     }
@@ -95,7 +95,7 @@ class App extends React.Component {
                                     getUserData={this.state.userData}
                                 />}
                         />
-                        <Route exact path="/relog" component={Relog}/>
+                        <Route exact path="/relog" component={Relog} />
                         <Route component={PageNotFound} />
                     </Switch>
 
