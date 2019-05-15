@@ -20,6 +20,7 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
+<<<<<<< HEAD
         this.handleShowAddPassMod = this.handleShowAddPassMod.bind(this);
         this.handleCloseAddPassMod = this.handleCloseAddPassMod.bind(this);
 
@@ -28,21 +29,29 @@ class Home extends React.Component {
 
         this.handleShowNotes = this.handleShowNotes.bind(this);
         this.handleCloseNotes = this.handleCloseNotes.bind(this);
+=======
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.renderPassBubble = this.renderPassBubble.bind(this);
+>>>>>>> a5e627882f13081a45cf6967b1f48a4a7bb2bad2
 
         this.state = {
             open: false,
             showModal: false,
             userID: null,
             email: null,
+<<<<<<< HEAD
             accountDB: null,
             showAddPassModal: false,
             showUpPassModal: false,
             showAddNoteModal: false,
+=======
+            accountDB: []
+>>>>>>> a5e627882f13081a45cf6967b1f48a4a7bb2bad2
         };
     }
-    componentDidMount() {
-        console.log(this.props.getUserID);
-        console.log(this.props.getToken);
+
+    getUserInfoAccounts = () => {
         // get UserInfo including all accounts
         API.getUserInfo(this.props.getUserID, {
             headers: {
@@ -50,7 +59,6 @@ class Home extends React.Component {
             }
         })
             .then(userInfo => {
-                console.log(userInfo.data);
 
                 this.setState({
                     email: userInfo.data.email,
@@ -58,13 +66,47 @@ class Home extends React.Component {
                 });
             })
             .catch(err => {
+                // this means token is invalid or expired
+                // will reroute to a relogin page.
                 console.log(err);
+
+                // change the route to the re-login page
+                this.props.history.push("/relog");
             });
     }
 
+    componentDidMount() {
+        this.getUserInfoAccounts();
+
+    }
+
+    // API call keeps running in the background
+    // componentDidUpdate() {
+    //     this.getUserInfoAccounts();
+    // }
+
     renderPassBubble = () => {
+        const accounts = this.state.accountDB;
+        console.log(accounts[0]);
 
+        let groupedAccounts = [];
+        for (let i = 0; i < accounts.length; ++i) {
+            let j = Math.floor(i / 3);
+            if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
+            groupedAccounts[j].push(accounts[i]);
+        }
 
+        return (
+            <Col>
+                {groupedAccounts.map(accountGroup => (
+                    <div className="d-flex" >
+                        <PassBubble name={accountGroup[0].name} user={accountGroup[0].username} />
+                        {accountGroup.length > 1 && <PassBubble name={accountGroup[1].name} user={accountGroup[1].username} />}
+                        {accountGroup.length > 2 && <PassBubble name={accountGroup[2].name} user={accountGroup[2].username} />}
+                    </div >
+                ))}
+            </Col>
+        );
     }
 
     handleLogout = event => {
@@ -174,6 +216,7 @@ class Home extends React.Component {
 
                     <Row className="text-center mt-3">
 
+<<<<<<< HEAD
                         <Col>
 
                             <div className="d-flex">
@@ -212,6 +255,10 @@ class Home extends React.Component {
                                 <PassBubble name="Amazon" user="test@gmail.com" />
                             </div>
                         </Col>
+=======
+                        {this.renderPassBubble()}
+
+>>>>>>> a5e627882f13081a45cf6967b1f48a4a7bb2bad2
                     </Row>
 
                 </Container>
