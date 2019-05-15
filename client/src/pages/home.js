@@ -163,6 +163,8 @@ class Home extends React.Component {
                     <Row className="text-center mt-3">
 
                         <Col>
+                            <h1>Home</h1>
+                            <p className="lead">View your websites and info.</p>
 
                             <div className="d-flex">
                                 <PassBubble name="Amazon" user="test@gmail.com" />

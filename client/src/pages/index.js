@@ -48,80 +48,73 @@ class Index extends React.Component {
                         <Row className="pt-5 mt-5">
                             <Col>
                                 <h1 className="mx-auto pt-5 mt-5">
-                                    Can't remember all your password?
+                                    Can't remember all your passwords?
                                 </h1>
-                                <p className="lead"> asdkaslkd laksdjlakjd ksjdajsd</p>
+                                <p className="lead"> Welcome to the ultimate password manager.</p>
                             </Col>
 
                         </Row>
                     </Container>
                 </Banner>
-
-                <Container>
-                    <Row className="text-center">
-                        <Col>
-                            Left Column
-                        </Col>
-
-                        <Col>
-                            Right Column
-                        </Col>
-                    </Row>
-                </Container>
-
                 <Banner
-                    bgImage={require("./Images/bg/blue-dude-head.png")}
-                    addClass="text-center mt-5"
-                >
-                    <Container className="pt-5">
-                        <Row className="pt-5 mt-5">
-                            <Col>
-                                <h1 className="mx-auto pt-5 mt-5">
-                                    Can't remember all your password?
-                                </h1>
-                                <p className="lead"> asdkaslkd laksdjlakjd ksjdajsd</p>
-                            </Col>
 
+                >
+                    <Container>
+                        <Row className="pt-5 mt-2">
+                            <h1 className="mx-auto pt-6 mt-5" style={{ fontWeight: 'bold', fontSize: 62, color: '#228b22' }}> Leader in Security. </h1>
+                            <p className="mx-auto" style={{ fontSize: 20, fontStyle: 'Avenir', color: '#2f4f4f', textAlign: "center" }}> As a password manager, our first priority is safeguarding your data. We’ve built madPass so that we never have the key to your account.
+</p>
+                        </Row>
+                    </Container>
+
+                    <Container className="px-5">
+                        <Row className="text-right pt-6 mt-5">
+                            <Col>
+                                <img
+                                    alt=""
+                                    src={require("./Images/icon1.svg")}
+                                    width="200"
+                                    height="200"
+                                    className="d-inline-block align-top"
+                                />
+                            </Col>
+                            <Col>
+                                <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Absolute Protection.</h1>
+                                <p style={{ color: '#2f4f4f' }}>The information stored in your vault is kept secret, even from madPass. Through local encryption we assure you, your information is scure and protected. Your master password, and the keys used to encrypt and decrypt the information, are inaccessible to anyone but you, the user.</p>
+                            </Col>
+                        </Row>
+                        <Row className="text-left pt-6 mt-5">
+                            <Col>
+                                <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Two-Factor Authentication.</h1>
+                                <p style={{ color: '#2f4f4f' }}>Two-factor authentication (sometimes referred to as multifactor or 2FA) adds extra security to your madPass account by requiring a second login step before authorizing access to your vault.</p>
+                            </Col>
+                            <Col>
+                                <img
+                                    alt=""
+                                    src={require("./Images/icon2.svg")}
+                                    width="200"
+                                    height="200"
+                                    className="d-inline-block align-top"
+                                />
+
+
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col className="text-center pt-6 mt-5">
+
+                                <Link to="/login">
+                                    <Button className="ml-4" variant="outline-success" size="lg" eventKey="3">Get madPass Free</Button>
+                                </Link>
+
+                            </Col>
                         </Row>
                     </Container>
                 </Banner>
 
-                <Banner
-                    bgImage={require("./Images/bg/blue-dude-head.png")}
-                    addClass="text-center mt-5"
-                >
-                    <Container className="pt-5">
-                        <Row className="pt-5 mt-5">
-                            <Col>
-                                <h1 className="mx-auto pt-5 mt-5">
-                                    Can't remember all your password?
-                                </h1>
-                                <p className="lead"> asdkaslkd laksdjlakjd ksjdajsd</p>
-                            </Col>
-
-                        </Row>
-                    </Container>
-                </Banner>
-
-                <Banner
-                    bgImage={require("./Images/bg/blue-dude-head.png")}
-                    addClass="text-center mt-5"
-                >
-                    <Container className="pt-5">
-                        <Row className="pt-5 mt-5">
-                            <Col>
-                                <h1 className="mx-auto pt-5 mt-5">
-                                    Can't remember all your password?
-                                </h1>
-                                <p className="lead"> asdkaslkd laksdjlakjd ksjdajsd</p>
-                            </Col>
-
-                        </Row>
-                    </Container>
-                </Banner>
 
 
-            </div>
+            </div >
 
 
 
