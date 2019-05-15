@@ -138,7 +138,7 @@ class Login extends React.Component {
                     <Row>
                         <Col md={5} className="mt-5">
                             <h1>Join us for free!</h1>
-                            <p className="lead">The madPass is forever free, we promise. Just sign up below and experience the magic.</p>
+                            <p className="lead">Don't worry, madPass is forever free! We promise. Just sign up below and experience the magic.</p>
                             <Form className="mt-3">
                                 <Form.Group controlId="registerEmail">
                                     <Form.Label>Email address</Form.Label>
@@ -179,8 +179,8 @@ class Login extends React.Component {
                                 <Button
                                     onClick={this.handleRegister}
                                     disabled={!(this.state.regEmail && this.state.regPass && this.state.regConfirmPass)}
-                                    variant="dark" >
-                                    Sign-up
+                                    variant="success" >
+                                    Sign Up - It's Free
                                 </Button>
                             </Form>
                         </Col>
@@ -219,7 +219,7 @@ class Login extends React.Component {
                                 <Button
                                     onClick={this.handleLogin}
                                     disabled={!(this.state.loginUser && this.state.loginPass)}
-                                    variant="dark" >
+                                    variant="success" >
                                     Login
                                 </Button>
                             </Form>
