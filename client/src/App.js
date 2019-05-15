@@ -6,6 +6,7 @@ import LandingPage from "./pages/index";
 import Login from "./pages/login-signup";
 import Home from "./pages/home";
 import Notes from "./pages/notes";
+import Relog from "./pages/relog";
 import PageNotFound from "./pages/404-error";
 // Components
 import Footer from "./components/Footer/index";
@@ -94,6 +95,7 @@ class App extends React.Component {
                                     getUserData={this.state.userData}
                                 />}
                         />
+                        <Route exact path="/relog" component={Relog}/>
                         <Route component={PageNotFound} />
                     </Switch>
 
