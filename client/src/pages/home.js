@@ -20,8 +20,15 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+        this.handleShowAddPassMod = this.handleShowAddPassMod.bind(this);
+        this.handleCloseAddPassMod = this.handleCloseAddPassMod.bind(this);
+
+        this.handleShowUpPassMod = this.handleShowUpPassMod.bind(this);
+        this.handleCloseUpPassMod = this.handleCloseUpPassMod.bind(this);
+
+        this.handleShowNotes = this.handleShowNotes.bind(this);
+        this.handleCloseNotes = this.handleCloseNotes.bind(this);
+
         this.renderPassBubble = this.renderPassBubble.bind(this);
 
         this.state = {
@@ -29,7 +36,11 @@ class Home extends React.Component {
             showModal: false,
             userID: null,
             email: null,
-            accountDB: []
+            accountDB: [],
+
+            showAddPassModal: false,
+            showUpPassModal: false,
+            showAddNoteModal: false
         };
     }
 
@@ -95,12 +106,28 @@ class Home extends React.Component {
         window.location.assign('/');
     }
 
-    handleClose() {
-        this.setState({ showModal: false });
+    handleCloseAddPassMod() {
+        this.setState({ showAddPassModal: false });
     }
 
-    handleShow() {
-        this.setState({ showModal: true });
+    handleShowAddPassMod() {
+        this.setState({ showAddPassModal: true });
+    }
+
+    handleCloseUpPassMod() {
+        this.setState({ showUpPassModal: false });
+    }
+
+    handleShowUpPassMod() {
+        this.setState({ showUpPassModal: true });
+    }
+
+    handleCloseNotes() {
+        this.setState({ showAddNoteModal: false });
+    }
+
+    handleShowNotes() {
+        this.setState({ showAddNoteModal: true });
     }
 
     render() {
@@ -134,7 +161,7 @@ class Home extends React.Component {
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
                                     className="text-danger"
-                                    onClick={this.handleShow}
+                                    onClick={this.handleShowAddPassMod}
                                 ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
@@ -148,7 +175,7 @@ class Home extends React.Component {
 
 
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item className="text-danger"><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
+                                <NavDropdown.Item className="text-danger" onClick={this.handleShowNotes}><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title={this.state.email} id="basic-nav-dropdown3">
@@ -188,7 +215,7 @@ class Home extends React.Component {
 
                 </Container>
 
-                <Modal centered size="lg" show={this.state.showModal} onHide={this.handleClose}>
+                <Modal centered size="lg" show={this.state.showAddPassModal} onHide={this.handleCloseAddPassMod}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add Password</Modal.Title>
                     </Modal.Header>
@@ -241,14 +268,118 @@ class Home extends React.Component {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
+                        <Button variant="secondary" onClick={this.handleCloseAddPassMod}>
                             Close
                     </Button>
-                        <Button variant="primary" onClick={this.handleClose}>
+                        <Button variant="primary" onClick={this.handleCloseAddPassMod}>
                             Add
                     </Button>
                     </Modal.Footer>
                 </Modal>
+
+                <Modal centered size="lg" show={this.state.showUpPassModal} onHide={this.handleCloseUpPassMod}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update Password</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <Container>
+
+                            <Row>
+                                <Col>
+                                    <Form>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Account Name</Form.Label>
+                                            <Form.Control type="text" />
+                                        </Form.Group>
+
+
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Username</Form.Label>
+                                            <Form.Control type="text" />
+                                        </Form.Group>
+
+                                    </Form>
+                                </Col>
+
+                                <Col>
+                                    <Form>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>URL</Form.Label>
+                                            <Form.Control type="text" />
+                                        </Form.Group>
+
+
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Password</Form.Label>
+                                            <Form.Control type="password" />
+                                        </Form.Group>
+
+                                    </Form>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Notes</Form.Label>
+                                        <Form.Control as="textarea" rows="4" />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                        </Container>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleCloseUpPassMod}>
+                            Close
+                    </Button>
+                        <Button variant="primary" onClick={this.handleCloseUpPassMod}>
+                            Update
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal centered size="lg" show={this.state.showAddNoteModal} onHide={this.handleCloseNotes}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add New Note</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <Container>
+
+                            <Row>
+                                <Col>
+                                    <Form>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Note Title</Form.Label>
+                                            <Form.Control type="text" />
+                                        </Form.Group>
+                                    </Form>
+                                </Col>
+                            </Row>
+
+                            <Row>
+                                <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Notes</Form.Label>
+                                        <Form.Control as="textarea" rows="4" />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+
+                        </Container>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleCloseNotes}>
+                            Close
+                    </Button>
+                        <Button variant="primary" onClick={this.handleCloseNotes}>
+                            Add
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
         );
     }

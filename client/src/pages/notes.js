@@ -26,11 +26,15 @@ class Notes extends React.Component {
         this.handleShowNotes = this.handleShowNotes.bind(this);
         this.handleCloseNotes = this.handleCloseNotes.bind(this);
 
+        this.handleshowUpNoteModal = this.handleshowUpNoteModal.bind(this);
+        this.handleCloseUpdateNote = this.handleCloseUpdateNote.bind(this);
+
         this.state = {
             open: false,
             user: "tester@example.com",
-            showPassModal: false,
-            showNotesModal: false
+            showAddPassModal: false,
+            showAddNoteModal: false,
+            showUpNoteModal: false
         };
     }
 
@@ -56,20 +60,31 @@ class Notes extends React.Component {
     }
 
     handleClosePass() {
-        this.setState({ showPassModal: false });
+        this.setState({ showAddPassModal: false });
     }
 
     handleShowPass() {
-        this.setState({ showPassModal: true });
+        this.setState({ showAddPassModal: true });
     }
 
     handleCloseNotes() {
-        this.setState({ showNotesModal: false });
+        this.setState({ showAddNoteModal: false });
     }
 
     handleShowNotes() {
-        this.setState({ showNotesModal: true });
+        this.setState({ showAddNoteModal: true });
     }
+
+    handleshowUpNoteModal() {
+        console.log("shit");
+        this.setState({ showUpNoteModal: true });
+    }
+
+    handleCloseUpdateNote() {
+        this.setState({ showUpNoteModal: false });
+    }
+
+
 
     render() {
 
@@ -140,7 +155,7 @@ class Notes extends React.Component {
                         <Col>
 
                             <div className="d-flex">
-                                <NotesBubble name="Note Title" user="note peek-a-boo" />
+                                <NotesBubble onClick={this.handleshowUpNoteModal} name="Note Title" user="note peek-a-boo" />
                                 <NotesBubble name="Note Title" user="note peek-a-boo" />
                                 <NotesBubble name="Note Title" user="note peek-a-boo" />
                             </div>
@@ -179,7 +194,7 @@ class Notes extends React.Component {
 
                 </Container>
 
-                <Modal centered size="lg" show={this.state.showPassModal} onHide={this.handleClosePass}>
+                <Modal centered size="lg" show={this.state.showAddPassModal} onHide={this.handleClosePass}>
                     <Modal.Header closeButton>
                         <Modal.Title>Add Password</Modal.Title>
                     </Modal.Header>
@@ -241,9 +256,9 @@ class Notes extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Modal centered size="lg" show={this.state.showNotesModal} onHide={this.handleCloseNotes}>
+                <Modal centered size="lg" show={this.state.showAddNoteModal} onHide={this.handleCloseNotes}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Add Note</Modal.Title>
+                        <Modal.Title>Add New Note</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
 
@@ -281,6 +296,48 @@ class Notes extends React.Component {
                     </Button>
                     </Modal.Footer>
                 </Modal>
+
+                <Modal centered size="lg" show={this.state.showUpNoteModal} onHide={this.handleCloseUpdateNote}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update Note</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <Container>
+
+                            <Row>
+                                <Col>
+                                    <Form>
+                                        <Form.Group controlId="formBasicEmail">
+                                            <Form.Label>Note Title</Form.Label>
+                                            <Form.Control type="text" />
+                                        </Form.Group>
+                                    </Form>
+                                </Col>                                
+                            </Row>
+
+                            <Row>
+                                <Col>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Notes</Form.Label>
+                                        <Form.Control as="textarea" rows="4" />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+
+                        </Container>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleCloseUpdateNote}>
+                            Close
+                    </Button>
+                        <Button variant="primary" onClick={this.handleCloseUpdateNote}>
+                            Update
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
         );
     }
