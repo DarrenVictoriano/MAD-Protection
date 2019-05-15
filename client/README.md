@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project #3: madPass
+
+Our third and final project, we are making a password managing application that encrypts users info and locks it into a "vault", there the user has one master password that can be used to view any info that the user has saved into their vault. Let madPass do the remembering for you!
+
+## Motivation
+
+This project gives us insight and a short intro into data security and encryption. While building this application we are using a series of new npm packages that will expose us to the methods of securing user data and encrypting said data.
+
 ## Available Scripts
 
 In the project directory, you can run:
