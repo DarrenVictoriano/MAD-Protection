@@ -20,7 +20,6 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-<<<<<<< HEAD
         this.handleShowAddPassMod = this.handleShowAddPassMod.bind(this);
         this.handleCloseAddPassMod = this.handleCloseAddPassMod.bind(this);
 
@@ -29,25 +28,19 @@ class Home extends React.Component {
 
         this.handleShowNotes = this.handleShowNotes.bind(this);
         this.handleCloseNotes = this.handleCloseNotes.bind(this);
-=======
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+
         this.renderPassBubble = this.renderPassBubble.bind(this);
->>>>>>> a5e627882f13081a45cf6967b1f48a4a7bb2bad2
 
         this.state = {
             open: false,
             showModal: false,
             userID: null,
             email: null,
-<<<<<<< HEAD
-            accountDB: null,
+            accountDB: [],
+
             showAddPassModal: false,
             showUpPassModal: false,
-            showAddNoteModal: false,
-=======
-            accountDB: []
->>>>>>> a5e627882f13081a45cf6967b1f48a4a7bb2bad2
+            showAddNoteModal: false
         };
     }
 
@@ -216,49 +209,8 @@ class Home extends React.Component {
 
                     <Row className="text-center mt-3">
 
-<<<<<<< HEAD
-                        <Col>
-
-                            <div className="d-flex">
-                                <PassBubble onClick={this.handleShowUpPassMod} name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-                        </Col>
-=======
                         {this.renderPassBubble()}
 
->>>>>>> a5e627882f13081a45cf6967b1f48a4a7bb2bad2
                     </Row>
 
                 </Container>
@@ -403,7 +355,7 @@ class Home extends React.Component {
                                             <Form.Control type="text" />
                                         </Form.Group>
                                     </Form>
-                                </Col>                                
+                                </Col>
                             </Row>
 
                             <Row>
