@@ -48,6 +48,9 @@ class Login extends React.Component {
                 this.props.setToken(userInfoDB.data.token);
                 this.props.setUserID(userInfoDB.data.data._id);
 
+                localStorage.setItem('token', userInfoDB.data.token);
+                localStorage.setItem('userID', userInfoDB.data.data._id);
+
                 this.props.history.push("/home");
 
             }).catch(err => {
@@ -58,7 +61,6 @@ class Login extends React.Component {
                 });
                 console.log(err);
             });
-
     }
 
     handleRegister = event => {
@@ -137,8 +139,8 @@ class Login extends React.Component {
                 <Container className="mb-5 pb-5 body-min">
                     <Row>
                         <Col md={5} className="mt-5">
-                            <h1>Join us for free</h1>
-                            <p className="lead">The madPass if forever free, promise. Just sign up below and see what happens.</p>
+                            <h1>Join us for free!</h1>
+                            <p className="lead">Don't worry, madPass is forever free! We promise. Just sign up below and experience the magic.</p>
                             <Form className="mt-3">
                                 <Form.Group controlId="registerEmail">
                                     <Form.Label>Email address</Form.Label>
@@ -149,7 +151,7 @@ class Login extends React.Component {
                                         type="email"
                                         placeholder="Enter email" />
                                     <Form.Text className={`text-danger ${this.state.hideEmailError}`}>
-                                        Email already been used. Please login your account.
+                                        Email already in use! Please login to your account, or use a different email.
                                     </Form.Text>
                                 </Form.Group>
 
@@ -162,7 +164,7 @@ class Login extends React.Component {
                                         type="password"
                                         placeholder="Password" />
                                     <Form.Text className={`text-danger ${this.state.hideRegPassError}`}>
-                                        Password does not match.
+                                        Passwords does not match.
                                     </Form.Text>
                                 </Form.Group>
 
@@ -179,8 +181,8 @@ class Login extends React.Component {
                                 <Button
                                     onClick={this.handleRegister}
                                     disabled={!(this.state.regEmail && this.state.regPass && this.state.regConfirmPass)}
-                                    variant="dark" >
-                                    Sign-up
+                                    variant="success" >
+                                    Sign Up - It's Free
                                 </Button>
                             </Form>
                         </Col>
@@ -191,7 +193,7 @@ class Login extends React.Component {
 
                         <Col md={5} className="mt-5">
                             <h1>Already a member?</h1>
-                            <p className="lead">Well, you're a lot cooler than we thought. Login here to view your vault.</p>
+                            <p className="lead">Well, you're a lot cooler than we thought. Have fun and enjoy the safety and security of madPass.</p>
                             <Form className="mt-3">
                                 <Form.Group controlId="signInEmail">
                                     <Form.Label>Email address</Form.Label>
@@ -202,7 +204,7 @@ class Login extends React.Component {
                                         type="email"
                                         placeholder="Enter email" />
                                     <Form.Text className={`text-danger ${this.state.hideLoginError}`}>
-                                        Incorrect Email/Password
+                                        Incorrect Email and/or Password! Please try again.
                                 </Form.Text>
                                 </Form.Group>
 
@@ -219,7 +221,7 @@ class Login extends React.Component {
                                 <Button
                                     onClick={this.handleLogin}
                                     disabled={!(this.state.loginUser && this.state.loginPass)}
-                                    variant="dark" >
+                                    variant="success" >
                                     Login
                                 </Button>
                             </Form>
