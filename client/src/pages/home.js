@@ -48,7 +48,7 @@ class Home extends React.Component {
         // get UserInfo including all accounts
         API.getUserInfo(this.props.getUserID, {
             headers: {
-                'Authorization': "Bearer " + this.props.getToken
+                'Authorization': "Bearer " + localStorage.getItem('token')
             }
         })
             .then(userInfo => {
@@ -63,20 +63,29 @@ class Home extends React.Component {
                 // will reroute to a relogin page.
                 console.log(err);
 
-                // change the route to the re-login page
-                this.props.history.push("/relog");
+
             });
     }
 
     componentDidMount() {
-        this.getUserInfoAccounts();
+        if (localStorage.getItem('token')) {
+            this.getUserInfoAccounts();
+        } else {
+            // change the route to the re-login page
+            this.props.history.push("/relog");
+        }
 
     }
 
     // API call keeps running in the background
-    // componentDidUpdate() {
-    //     this.getUserInfoAccounts();
-    // }
+    componentDidUpdate() {
+        if (localStorage.getItem('token')) {
+            this.getUserInfoAccounts();
+        } else {
+            // change the route to the re-login page
+            this.props.history.push("/relog");
+        }
+    }
 
     renderPassBubble = () => {
         const accounts = this.state.accountDB;
@@ -103,6 +112,7 @@ class Home extends React.Component {
     }
 
     handleLogout = event => {
+        localStorage.setItem('token', null);
         window.location.assign('/');
     }
 
