@@ -22,13 +22,14 @@ class Home extends React.Component {
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.renderPassBubble = this.renderPassBubble.bind(this);
 
         this.state = {
             open: false,
             showModal: false,
             userID: null,
             email: null,
-            accountDB: null
+            accountDB: []
         };
     }
 
@@ -67,8 +68,27 @@ class Home extends React.Component {
     // }
 
     renderPassBubble = () => {
+        const accounts = this.state.accountDB;
+        console.log(accounts[0]);
 
+        let groupedAccounts = [];
+        for (let i = 0; i < accounts.length; ++i) {
+            let j = Math.floor(i / 3);
+            if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
+            groupedAccounts[j].push(accounts[i]);
+        }
 
+        return (
+            <Col>
+                {groupedAccounts.map(accountGroup => (
+                    <div className="d-flex" >
+                        <PassBubble name={accountGroup[0].name} user={accountGroup[0].username} />
+                        {accountGroup.length > 1 && <PassBubble name={accountGroup[1].name} user={accountGroup[1].username} />}
+                        {accountGroup.length > 2 && <PassBubble name={accountGroup[2].name} user={accountGroup[2].username} />}
+                    </div >
+                ))}
+            </Col>
+        );
     }
 
     handleLogout = event => {
@@ -162,44 +182,8 @@ class Home extends React.Component {
 
                     <Row className="text-center mt-3">
 
-                        <Col>
+                        {this.renderPassBubble()}
 
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-                        </Col>
                     </Row>
 
                 </Container>
