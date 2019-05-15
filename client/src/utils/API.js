@@ -16,7 +16,7 @@ export default {
     },
 
     // Create Account/Password
-    createAcctPass: function (newAcctPass) {
-        return axios.post("/api/account/" + newAcctPass);
+    createAcctPass: function (userID, config, newAcctPass) {
+        return axios.post("/api/account/" + userID, newAcctPass, config);
     }
 };

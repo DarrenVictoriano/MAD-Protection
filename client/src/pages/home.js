@@ -163,16 +163,32 @@ class Home extends React.Component {
 
     handleAddPass = event => {
         event.preventDefault();
-        API.createAcctPass({
+        console.log("test: " + this.state.acctName);
+        console.log("test: " + this.state.acctUsername);
+        console.log("test: " + this.state.acctPass);
+        console.log("test: " + this.state.acctUrl);
+        console.log("test: " + this.state.acctNotes);
+         let newAccount = {
             name: this.state.acctName,
             username: this.state.acctUsername,
             password: this.state.acctPass,
             link: this.state.acctUrl,
             notes: this.state.acctNotes
-        })
+        }
+
+        let config = {
+            headers: {
+                "Authorization": "Bearer " +localStorage.getItem('token')
+            }
+        }
+
+        API.createAcctPass(localStorage.getItem('userID'),config, newAccount )
         .then(newAcctData => {
+            console.log('added');
             console.log(newAcctData);
-        })
+        }).catch(err => {
+            console.log(err);
+        });
         // Close modal
         this.setState({ showAddPassModal: false });
     }
