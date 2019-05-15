@@ -6,16 +6,12 @@ export default {
     loginUser: function (loginCred) {
         return axios.post("/api/login/", loginCred);
     },
-    // Gets the book with the given id
-    getUserInfo: function (userID) {
-        return axios.get("/api/user/" + userID);
+    // Create new user
+    createUser: function (newUser) {
+        return axios.post("/api/user/", newUser);
     },
-    // Deletes the book with the given id
-    deleteBook: function (id) {
-        return axios.delete("/api/books/" + id);
-    },
-    // Saves a book to the database
-    saveBook: function (bookData) {
-        return axios.post("/api/books", bookData);
+    // Gets the UserInfo and AccountDB with the given id
+    getUserInfo: function (userID, config) {
+        return axios.get("/api/user/" + userID, config);
     }
 };

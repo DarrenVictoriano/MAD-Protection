@@ -4,6 +4,7 @@ module.exports = {
     validateToken: (req, res, next) => {
         const authorizationHeaader = req.headers.authorization;
         let result;
+
         if (authorizationHeaader) {
             const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
             const options = {
@@ -15,7 +16,7 @@ module.exports = {
                 req.decoded = result;
                 next();
             } catch (err) {
-                throw new Error(err);
+                throw new Error("Token Expired - DV", err);
             }
         } else {
 

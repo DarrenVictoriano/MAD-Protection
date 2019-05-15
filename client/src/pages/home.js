@@ -1,7 +1,6 @@
 import API from "../utils/API";
 import React from "react";
 import { Link } from "react-router-dom";
-import globalState from "../global-state";
 // Component below
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -18,60 +17,81 @@ import Col from "react-bootstrap/Col";
 
 class Home extends React.Component {
 
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
 
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.renderPassBubble = this.renderPassBubble.bind(this);
 
         this.state = {
             open: false,
             showModal: false,
+            userID: null,
             email: null,
-            accountDB: null
+            accountDB: []
         };
     }
-    componentDidMount() {
+
+    getUserInfoAccounts = () => {
         // get UserInfo including all accounts
-        API.getUserInfo(globalState._id)
+        API.getUserInfo(this.props.getUserID, {
+            headers: {
+                'Authorization': "Bearer " + this.props.getToken
+            }
+        })
             .then(userInfo => {
-                console.log(userInfo);
 
                 this.setState({
-                    email: userInfo.email,
-                    accountDB: userInfo.accountInfo
+                    email: userInfo.data.email,
+                    accountDB: userInfo.data.accountInfo
                 });
             })
             .catch(err => {
+                // this means token is invalid or expired
+                // will reroute to a relogin page.
                 console.log(err);
+
+                // change the route to the re-login page
+                this.props.history.push("/relog");
             });
     }
 
-    componentDidUpdate() {
-
-        API.getUserInfo(globalState._id)
-            .then(userInfo => {
-                console.log(userInfo);
-
-                this.setState({
-                    email: userInfo.email,
-                    accountDB: userInfo.accountInfo
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    componentDidMount() {
+        this.getUserInfoAccounts();
 
     }
+
+    // API call keeps running in the background
+    // componentDidUpdate() {
+    //     this.getUserInfoAccounts();
+    // }
 
     renderPassBubble = () => {
+        const accounts = this.state.accountDB;
+        console.log(accounts[0]);
 
+        let groupedAccounts = [];
+        for (let i = 0; i < accounts.length; ++i) {
+            let j = Math.floor(i / 3);
+            if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
+            groupedAccounts[j].push(accounts[i]);
+        }
 
+        return (
+            <Col>
+                {groupedAccounts.map(accountGroup => (
+                    <div className="d-flex" >
+                        <PassBubble name={accountGroup[0].name} user={accountGroup[0].username} />
+                        {accountGroup.length > 1 && <PassBubble name={accountGroup[1].name} user={accountGroup[1].username} />}
+                        {accountGroup.length > 2 && <PassBubble name={accountGroup[2].name} user={accountGroup[2].username} />}
+                    </div >
+                ))}
+            </Col>
+        );
     }
 
     handleLogout = event => {
-        globalState.token = null;
-        globalState._id = null;
         window.location.assign('/');
     }
 
@@ -162,46 +182,8 @@ class Home extends React.Component {
 
                     <Row className="text-center mt-3">
 
-                        <Col>
-                            <h1>Home</h1>
-                            <p className="lead">View your websites and info.</p>
+                        {this.renderPassBubble()}
 
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-
-                            <div className="d-flex">
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                                <PassBubble name="Amazon" user="test@gmail.com" />
-                            </div>
-                        </Col>
                     </Row>
 
                 </Container>

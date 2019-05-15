@@ -11,7 +11,6 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./style.css"
-import globalState from '../global-state';
 
 class Login extends React.Component {
 
@@ -26,7 +25,7 @@ class Login extends React.Component {
             hideEmailError: "d-none",
             regPass: "",
             regConfirmPass: "",
-            hideRegPassError: "d-none"
+            hideRegPassError: "d-none",
         }
     }
 
@@ -43,15 +42,13 @@ class Login extends React.Component {
             Password: this.state.loginPass
         }
 
-        console.log(loginCredential);
-
         API.loginUser(loginCredential)
             .then(userInfoDB => {
-                console.log(userInfoDB);
 
-                globalState.token = userInfoDB.token;
-                globalState._id = userInfoDB.data._id;
-                window.location.assign('/home');
+                this.props.setToken(userInfoDB.data.token);
+                this.props.setUserID(userInfoDB.data.data._id);
+
+                this.props.history.push("/home");
 
             }).catch(err => {
                 this.setState({
@@ -69,11 +66,44 @@ class Login extends React.Component {
         // show error if password does not match
         if (this.state.regPass !== this.state.regConfirmPass) {
             this.setState({
-                hideRegPassError: "d-block"
+                regEmail: "",
+                regPass: "",
+                regConfirmPass: "",
+                hideRegPassError: "d-block",
             });
         } else {
             // create new user if password match
+            API.createUser({
+                email: this.state.regEmail,
+                Password: this.state.regPass
+            })
+                .then(newUserData => {
+                    console.log(newUserData.data);
 
+                    let newUserLogin = {
+                        email: newUserData.data.email,
+                        Password: this.state.regPass
+                    }
+
+                    return API.loginUser(newUserLogin);
+
+                })
+                .then(userInfoDB => {
+
+                    this.props.setToken(userInfoDB.data.token);
+                    this.props.setUserID(userInfoDB.data.data._id);
+
+                    this.props.history.push("/home");
+
+                }).catch(err => {
+                    this.setState({
+                        hideEmailError: "d-block",
+                        regEmail: "",
+                        regPass: "",
+                        regConfirmPass: ""
+                    });
+                    console.log(err);
+                });
         }
 
     }

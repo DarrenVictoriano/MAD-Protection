@@ -9,24 +9,99 @@ import Notes from "./pages/notes";
 import PageNotFound from "./pages/404-error";
 // Components
 import Footer from "./components/Footer/index";
+import PrivateRoute from "./components/PrivateRoute/index";
 
-function App() {
+class App extends React.Component {
 
-    return (
-        <Router>
-            <div className="home-body">
-                <Switch>
-                    <Route exact path="/" component={LandingPage} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/home" component={Home} />
-                    <Route exact path="/notes" component={Notes} />
-                    <Route component={PageNotFound} />
-                </Switch>
+    constructor(props) {
+        super(props)
 
-                <Footer />
-            </div>
-        </Router>
-    );
+        this.state = {
+            token: "nooo",
+            userID: "nooo",
+            userData: "noooo"
+        }
+    }
+
+    setToken = (data) => {
+        this.setState({
+            token: data
+        });
+    }
+
+    setUserID = (data) => {
+        this.setState({
+            userID: data
+        });
+    }
+
+    setUserData = (data) => {
+        this.setState({
+            userData: data
+        });
+    }
+
+    render() {
+        return (
+            <Router>
+                <div className="home-body">
+                    <Switch>
+                        <Route exact path="/" render={(props) =>
+                            <LandingPage {...props}
+                                setToken={this.setToken}
+                                setUserID={this.setUserID}
+                                setUserData={this.setUserData}
+
+                                getToken={this.state.token}
+                                getUserID={this.state.userID}
+                                getUserData={this.state.userData}
+                            />}
+                        />
+                        <Route exact path="/login" render={(props) =>
+                            <Login {...props}
+                                setToken={this.setToken}
+                                setUserID={this.setUserID}
+                                setUserData={this.setUserData}
+
+                                getToken={this.state.token}
+                                getUserID={this.state.userID}
+                                getUserData={this.state.userData}
+                            />}
+                        />
+                        <Route exact path="/home"
+                            token={false}
+                            render={(props) =>
+                                <Home {...props}
+                                    setToken={this.setToken}
+                                    setUserID={this.setUserID}
+                                    setUserData={this.setUserData}
+
+                                    getToken={this.state.token}
+                                    getUserID={this.state.userID}
+                                    getUserData={this.state.userData}
+                                />}
+                        />
+                        <Route exact path="/notes"
+                            token={true}
+                            render={(props) =>
+                                <Notes {...props}
+                                    setToken={this.setToken}
+                                    setUserID={this.setUserID}
+                                    setUserData={this.setUserData}
+
+                                    getToken={this.state.token}
+                                    getUserID={this.state.userID}
+                                    getUserData={this.state.userData}
+                                />}
+                        />
+                        <Route component={PageNotFound} />
+                    </Switch>
+
+                    <Footer />
+                </div>
+            </Router >
+        );
+    }
 }
 
 
