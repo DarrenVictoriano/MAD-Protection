@@ -28,7 +28,7 @@ module.exports = {
         db.AccountInfo
             .findById(req.params.id)
             .then(dbAccountInfo => {
-                console.log(dbAccountInfo);
+                //console.log(dbAccountInfo);
 
                 let decryptedData = {
                     _id: dbAccountInfo._id,

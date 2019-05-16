@@ -43,11 +43,11 @@ module.exports = {
                 }
             })
             .catch(err => {
-                console.log(err);
+                //console.log(err);
                 res.status(err.status).json(err.message);
             });
     },
     logout: function (req, res) {
-        console.log("logout");
+        //console.log("logout");
     }
 }
