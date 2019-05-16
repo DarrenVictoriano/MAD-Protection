@@ -81,6 +81,13 @@ class Home extends React.Component {
 
     }
 
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    }
+
     renderPassBubble = () => {
         const accounts = this.state.accountDB;
         console.log(accounts[0]);
@@ -100,17 +107,20 @@ class Home extends React.Component {
                             name={accountGroup[0].name}
                             user={accountGroup[0].username}
                             userID={accountGroup[0]._id}
+                            onClickView={this.handleShowUpPassMod}
                         />
 
                         {accountGroup.length > 1 && <PassBubble
                             name={accountGroup[1].name}
                             user={accountGroup[1].username}
                             userID={accountGroup[1]._id}
+                            onClickView={this.handleShowUpPassMod}
                         />}
                         {accountGroup.length > 2 && <PassBubble
                             name={accountGroup[2].name}
                             user={accountGroup[2].username}
                             userID={accountGroup[2]._id}
+                            onClickView={this.handleShowUpPassMod}
                         />}
                     </div >
                 ))}
