@@ -13,5 +13,10 @@ export default {
     // Gets the UserInfo and AccountDB with the given id
     getUserInfo: function (userID, config) {
         return axios.get("/api/user/" + userID, config);
+    },
+
+    // Create Account/Password
+    createAcctPass: function (userID, config, newAcctPass) {
+        return axios.post("/api/account/" + userID, newAcctPass, config);
     }
 };

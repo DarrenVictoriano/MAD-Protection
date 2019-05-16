@@ -40,7 +40,13 @@ class Home extends React.Component {
 
             showAddPassModal: false,
             showUpPassModal: false,
-            showAddNoteModal: false
+            showAddNoteModal: false,
+
+            acctName: "",
+            acctUsername: "",
+            acctUrl: "",
+            acctPass: "",
+            acctNotes: ""
         };
     }
 
@@ -128,6 +134,13 @@ class Home extends React.Component {
         );
     }
 
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        })
+    }
+
     handleLogout = event => {
         localStorage.setItem('token', null);
         localStorage.setItem('userID', null);
@@ -156,6 +169,38 @@ class Home extends React.Component {
 
     handleShowNotes() {
         this.setState({ showAddNoteModal: true });
+    }
+
+    handleAddPass = event => {
+        event.preventDefault();
+        console.log("test: " + this.state.acctName);
+        console.log("test: " + this.state.acctUsername);
+        console.log("test: " + this.state.acctPass);
+        console.log("test: " + this.state.acctUrl);
+        console.log("test: " + this.state.acctNotes);
+         let newAccount = {
+            name: this.state.acctName,
+            username: this.state.acctUsername,
+            password: this.state.acctPass,
+            link: this.state.acctUrl,
+            notes: this.state.acctNotes
+        }
+
+        let config = {
+            headers: {
+                "Authorization": "Bearer " +localStorage.getItem('token')
+            }
+        }
+
+        API.createAcctPass(localStorage.getItem('userID'),config, newAccount )
+        .then(newAcctData => {
+            console.log('added');
+            console.log(newAcctData);
+        }).catch(err => {
+            console.log(err);
+        });
+        // Close modal
+        this.setState({ showAddPassModal: false });
     }
 
     render() {
@@ -256,13 +301,21 @@ class Home extends React.Component {
                                     <Form>
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>Account Name</Form.Label>
-                                            <Form.Control type="text" />
+                                            <Form.Control 
+                                                value={this.state.acctName} 
+                                                onChange={this.handleInputChange} 
+                                                name="acctName" 
+                                                type="text" />
                                         </Form.Group>
 
 
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>Username</Form.Label>
-                                            <Form.Control type="text" />
+                                            <Form.Control 
+                                                value={this.state.acctUsername} 
+                                                onChange={this.handleInputChange} 
+                                                name="acctUsername" 
+                                                type="text" />
                                         </Form.Group>
 
                                     </Form>
@@ -272,13 +325,21 @@ class Home extends React.Component {
                                     <Form>
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>URL</Form.Label>
-                                            <Form.Control type="text" />
+                                            <Form.Control 
+                                                value={this.state.acctUrl} 
+                                                onChange={this.handleInputChange} 
+                                                name="acctUrl" 
+                                                type="text" />
                                         </Form.Group>
 
 
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" />
+                                            <Form.Control 
+                                                value={this.state.acctPass} 
+                                                onChange={this.handleInputChange} 
+                                                name="acctPass" 
+                                                type="password" />
                                         </Form.Group>
 
                                     </Form>
@@ -288,7 +349,11 @@ class Home extends React.Component {
                                 <Col>
                                     <Form.Group controlId="formBasicEmail">
                                         <Form.Label>Notes</Form.Label>
-                                        <Form.Control as="textarea" rows="4" />
+                                        <Form.Control 
+                                            value={this.state.acctNotes} 
+                                            onChange={this.handleInputChange} 
+                                            name="acctNotes"
+                                            as="textarea" rows="4" />
                                     </Form.Group>
                                 </Col>
                             </Row>
@@ -299,7 +364,7 @@ class Home extends React.Component {
                         <Button variant="secondary" onClick={this.handleCloseAddPassMod}>
                             Close
                     </Button>
-                        <Button variant="primary" onClick={this.handleCloseAddPassMod}>
+                        <Button variant="primary" onClick={this.handleAddPass}>
                             Add
                     </Button>
                     </Modal.Footer>

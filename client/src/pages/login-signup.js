@@ -80,7 +80,7 @@ class Login extends React.Component {
                 Password: this.state.regPass
             })
                 .then(newUserData => {
-                    console.log(newUserData.data);
+                    // console.log(newUserData.data);
 
                     let newUserLogin = {
                         email: newUserData.data.email,
