@@ -84,7 +84,19 @@ module.exports = {
 
         db.AccountInfo
             .findOneAndUpdate({ _id: req.params.id }, encryptData)
-            .then(dbAccountInfo => res.json(dbAccountInfo))
+            .then(dbAccountInfo => {
+
+                let decryptedData = {
+                    _id: dbAccountInfo._id,
+                    name: mad.decrypt(dbAccountInfo.name),
+                    username: mad.decrypt(dbAccountInfo.username),
+                    password: mad.decrypt(dbAccountInfo.password),
+                    link: mad.decrypt(dbAccountInfo.link),
+                    notes: mad.decrypt(dbAccountInfo.notes)
+                }
+
+                res.json(decryptedData)
+            })
             .catch(err => res.status(422).json(err));
     },
     remove: function (req, res) {

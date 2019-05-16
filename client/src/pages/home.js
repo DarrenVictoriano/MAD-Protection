@@ -84,6 +84,8 @@ class Home extends React.Component {
 
     }
 
+
+
     renderPassBubble = () => {
         const accounts = this.state.accountDB;
         //console.log(accounts[0]);
@@ -161,11 +163,15 @@ class Home extends React.Component {
 
     handleAddPass = event => {
         event.preventDefault();
-        console.log("test: " + this.state.acctName);
-        console.log("test: " + this.state.acctUsername);
-        console.log("test: " + this.state.acctPass);
-        console.log("test: " + this.state.acctUrl);
-        console.log("test: " + this.state.acctNotes);
+
+        this.setState({
+            acctName: "",
+            acctUsername: "",
+            acctPass: "",
+            acctUrl: "",
+            acctNotes: ""
+        });
+
         let newAccount = {
             name: this.state.acctName,
             username: this.state.acctUsername,
