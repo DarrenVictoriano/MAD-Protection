@@ -23,9 +23,6 @@ class Home extends React.Component {
         this.handleShowAddPassMod = this.handleShowAddPassMod.bind(this);
         this.handleCloseAddPassMod = this.handleCloseAddPassMod.bind(this);
 
-        this.handleShowUpPassMod = this.handleShowUpPassMod.bind(this);
-        this.handleCloseUpPassMod = this.handleCloseUpPassMod.bind(this);
-
         this.handleShowNotes = this.handleShowNotes.bind(this);
         this.handleCloseNotes = this.handleCloseNotes.bind(this);
 
@@ -87,16 +84,9 @@ class Home extends React.Component {
 
     }
 
-    handleInputChange = event => {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value
-        });
-    }
-
     renderPassBubble = () => {
         const accounts = this.state.accountDB;
-        console.log(accounts[0]);
+        //console.log(accounts[0]);
 
         let groupedAccounts = [];
         for (let i = 0; i < accounts.length; ++i) {
@@ -112,21 +102,27 @@ class Home extends React.Component {
                         <PassBubble
                             name={accountGroup[0].name}
                             user={accountGroup[0].username}
+                            pass={accountGroup[0].password}
+                            link={accountGroup[0].link}
+                            notes={accountGroup[0].notes}
                             userID={accountGroup[0]._id}
-                            onClickView={this.handleShowUpPassMod}
                         />
 
                         {accountGroup.length > 1 && <PassBubble
                             name={accountGroup[1].name}
                             user={accountGroup[1].username}
+                            pass={accountGroup[1].password}
+                            link={accountGroup[1].link}
+                            notes={accountGroup[1].notes}
                             userID={accountGroup[1]._id}
-                            onClickView={this.handleShowUpPassMod}
                         />}
                         {accountGroup.length > 2 && <PassBubble
                             name={accountGroup[2].name}
                             user={accountGroup[2].username}
+                            pass={accountGroup[2].password}
+                            link={accountGroup[2].link}
+                            notes={accountGroup[2].notes}
                             userID={accountGroup[2]._id}
-                            onClickView={this.handleShowUpPassMod}
                         />}
                     </div >
                 ))}
@@ -155,14 +151,6 @@ class Home extends React.Component {
         this.setState({ showAddPassModal: true });
     }
 
-    handleCloseUpPassMod() {
-        this.setState({ showUpPassModal: false });
-    }
-
-    handleShowUpPassMod() {
-        this.setState({ showUpPassModal: true });
-    }
-
     handleCloseNotes() {
         this.setState({ showAddNoteModal: false });
     }
@@ -178,7 +166,7 @@ class Home extends React.Component {
         console.log("test: " + this.state.acctPass);
         console.log("test: " + this.state.acctUrl);
         console.log("test: " + this.state.acctNotes);
-         let newAccount = {
+        let newAccount = {
             name: this.state.acctName,
             username: this.state.acctUsername,
             password: this.state.acctPass,
@@ -188,17 +176,17 @@ class Home extends React.Component {
 
         let config = {
             headers: {
-                "Authorization": "Bearer " +localStorage.getItem('token')
+                "Authorization": "Bearer " + localStorage.getItem('token')
             }
         }
 
-        API.createAcctPass(localStorage.getItem('userID'),config, newAccount )
-        .then(newAcctData => {
-            console.log('added');
-            console.log(newAcctData);
-        }).catch(err => {
-            console.log(err);
-        });
+        API.createAcctPass(localStorage.getItem('userID'), config, newAccount)
+            .then(newAcctData => {
+                console.log('added');
+                console.log(newAcctData);
+            }).catch(err => {
+                console.log(err);
+            });
         // Close modal
         this.setState({ showAddPassModal: false });
     }
@@ -301,20 +289,20 @@ class Home extends React.Component {
                                     <Form>
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>Account Name</Form.Label>
-                                            <Form.Control 
-                                                value={this.state.acctName} 
-                                                onChange={this.handleInputChange} 
-                                                name="acctName" 
+                                            <Form.Control
+                                                value={this.state.acctName}
+                                                onChange={this.handleInputChange}
+                                                name="acctName"
                                                 type="text" />
                                         </Form.Group>
 
 
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>Username</Form.Label>
-                                            <Form.Control 
-                                                value={this.state.acctUsername} 
-                                                onChange={this.handleInputChange} 
-                                                name="acctUsername" 
+                                            <Form.Control
+                                                value={this.state.acctUsername}
+                                                onChange={this.handleInputChange}
+                                                name="acctUsername"
                                                 type="text" />
                                         </Form.Group>
 
@@ -325,20 +313,20 @@ class Home extends React.Component {
                                     <Form>
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>URL</Form.Label>
-                                            <Form.Control 
-                                                value={this.state.acctUrl} 
-                                                onChange={this.handleInputChange} 
-                                                name="acctUrl" 
+                                            <Form.Control
+                                                value={this.state.acctUrl}
+                                                onChange={this.handleInputChange}
+                                                name="acctUrl"
                                                 type="text" />
                                         </Form.Group>
 
 
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>Password</Form.Label>
-                                            <Form.Control 
-                                                value={this.state.acctPass} 
-                                                onChange={this.handleInputChange} 
-                                                name="acctPass" 
+                                            <Form.Control
+                                                value={this.state.acctPass}
+                                                onChange={this.handleInputChange}
+                                                name="acctPass"
                                                 type="password" />
                                         </Form.Group>
 
@@ -349,9 +337,9 @@ class Home extends React.Component {
                                 <Col>
                                     <Form.Group controlId="formBasicEmail">
                                         <Form.Label>Notes</Form.Label>
-                                        <Form.Control 
-                                            value={this.state.acctNotes} 
-                                            onChange={this.handleInputChange} 
+                                        <Form.Control
+                                            value={this.state.acctNotes}
+                                            onChange={this.handleInputChange}
                                             name="acctNotes"
                                             as="textarea" rows="4" />
                                     </Form.Group>
@@ -370,67 +358,7 @@ class Home extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Modal centered size="lg" show={this.state.showUpPassModal} onHide={this.handleCloseUpPassMod}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Update Password</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
 
-                        <Container>
-
-                            <Row>
-                                <Col>
-                                    <Form>
-                                        <Form.Group controlId="formBasicEmail">
-                                            <Form.Label>Account Name</Form.Label>
-                                            <Form.Control type="text" />
-                                        </Form.Group>
-
-
-                                        <Form.Group controlId="formBasicEmail">
-                                            <Form.Label>Username</Form.Label>
-                                            <Form.Control type="text" />
-                                        </Form.Group>
-
-                                    </Form>
-                                </Col>
-
-                                <Col>
-                                    <Form>
-                                        <Form.Group controlId="formBasicEmail">
-                                            <Form.Label>URL</Form.Label>
-                                            <Form.Control type="text" />
-                                        </Form.Group>
-
-
-                                        <Form.Group controlId="formBasicEmail">
-                                            <Form.Label>Password</Form.Label>
-                                            <Form.Control type="password" />
-                                        </Form.Group>
-
-                                    </Form>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Notes</Form.Label>
-                                        <Form.Control as="textarea" rows="4" />
-                                    </Form.Group>
-                                </Col>
-                            </Row>
-                        </Container>
-
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleCloseUpPassMod}>
-                            Close
-                    </Button>
-                        <Button variant="primary" onClick={this.handleCloseUpPassMod}>
-                            Update
-                    </Button>
-                    </Modal.Footer>
-                </Modal>
 
                 <Modal centered size="lg" show={this.state.showAddNoteModal} onHide={this.handleCloseNotes}>
                     <Modal.Header closeButton>
