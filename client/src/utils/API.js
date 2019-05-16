@@ -18,5 +18,13 @@ export default {
     // Create Account/Password
     createAcctPass: function (userID, config, newAcctPass) {
         return axios.post("/api/account/" + userID, newAcctPass, config);
+    },
+
+    updateAccount: function (userID, newAccountInfo, config) {
+        return axios.put("/api/account/" + userID, newAccountInfo, config);
+    },
+
+    deleteAccount: function (userID, config) {
+        return axios.delete("/api/account/" + userID, config);
     }
 };
