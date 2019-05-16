@@ -43,8 +43,8 @@ class PassBubble extends React.Component {
                         </small>
                     </Button>
                     <Button
-                    onClick={() => this.props.onClick()}
-                    className="btn btn-light py-0 px-2 m-1">
+                        onClick={this.state.viewPass}
+                        className="btn btn-light py-0 px-2 m-1">
                         <small className="p-0 m-0">
                             <i className="fas fa-eye"></i> View
                         </small>
