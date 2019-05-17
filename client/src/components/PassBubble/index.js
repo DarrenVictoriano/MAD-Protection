@@ -78,6 +78,12 @@ class PassBubble extends React.Component {
         }, 500);
     }
 
+    clearClipboard = event => {
+        setTimeout(() => {
+            navigator.clipboard.writeText("");
+        }, 5000);
+    }
+
 
     handleCopyUser = event => {
         const { showCopyUser } = this.state;
@@ -87,6 +93,8 @@ class PassBubble extends React.Component {
         navigator.clipboard.writeText(this.state.modalUser);
 
         this.hideToolTipUser();
+
+        this.clearClipboard();
     }
 
     handleCopyPass = event => {
@@ -97,6 +105,8 @@ class PassBubble extends React.Component {
         navigator.clipboard.writeText(this.state.modalPass);
 
         this.hideToolTipPass();
+
+        this.clearClipboard();
     }
 
     handleUpdate = event => {
@@ -122,6 +132,7 @@ class PassBubble extends React.Component {
                 });
 
                 this.props.getInfo();
+                window.location.reload();
                 this.handleCloseUpPassMod();
 
             }).catch(err => {
@@ -141,6 +152,8 @@ class PassBubble extends React.Component {
             .then(data => {
                 console.log(data);
                 this.props.getInfo();
+
+                window.location.reload();
                 this.handleCloseUpPassMod();
 
             }).catch(err => {
