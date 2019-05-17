@@ -26,6 +26,9 @@ class Home extends React.Component {
         this.handleShowNotes = this.handleShowNotes.bind(this);
         this.handleCloseNotes = this.handleCloseNotes.bind(this);
 
+        this.handleShowAcctMod = this.handleShowAcctMod.bind(this);
+        this.handleCloseAcctMod = this.handleCloseAcctMod.bind(this);
+
         this.renderPassBubble = this.renderPassBubble.bind(this);
 
         this.state = {
@@ -38,6 +41,7 @@ class Home extends React.Component {
             showAddPassModal: false,
             showUpPassModal: false,
             showAddNoteModal: false,
+            showAcctModal: false,
 
             acctName: "",
             acctUsername: "",
@@ -153,6 +157,7 @@ class Home extends React.Component {
     }
 
     handleShowAddPassMod() {
+        console.log("POOOOOOP");
         this.setState({ showAddPassModal: true });
     }
 
@@ -162,6 +167,15 @@ class Home extends React.Component {
 
     handleShowNotes() {
         this.setState({ showAddNoteModal: true });
+    }
+
+    handleShowAcctMod() {
+        console.log("shit!");
+        this.setState({ showAcctModal: true });
+    }
+
+    handleCloseAcctMod() {
+        this.setState({ showAcctModal: false });
     }
 
     handleAddPass = event => {
@@ -246,11 +260,13 @@ class Home extends React.Component {
 
 
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item className="text-danger" onClick={this.handleShowNotes}><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
+                                <NavDropdown.Item 
+                                    className="text-danger" 
+                                    onClick={this.handleShowNotes}><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title={this.state.email} id="basic-nav-dropdown3">
-                                <NavDropdown.Item><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
+                                <NavDropdown.Item onClick={this.handleShowAcctMod}><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
                                     onClick={this.handleLogout}
@@ -368,6 +384,70 @@ class Home extends React.Component {
                     </Button>
                     </Modal.Footer>
                 </Modal>
+
+
+
+
+
+
+
+
+                <Modal centered size="lg" show={this.state.showAcctModal} onHide={this.handleCloseAcctMod}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update Password</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <Container>
+
+                            <Row>
+                                <Form>
+                                    <Form.Group controlId="formAcctSettings">
+                                        <Form.Label>Current Password</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="modalOldPass"
+                                        />
+                                    </Form.Group>
+                                </Form>
+                            </Row>
+
+                            <Row>
+                                <Form>
+                                    <Form.Group controlId="formAcctSettings">
+                                        <Form.Label>New Password</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="modalNewPass"
+                                        />
+                                    </Form.Group>
+                                </Form>
+                            </Row>
+
+                            <Row>
+                                <Form>
+                                    <Form.Group controlId="formAcctSettings">
+                                        <Form.Label>Confirm Password</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="modalConfirmPass"
+                                        />
+                                    </Form.Group>
+                                </Form>
+                            </Row>
+
+                        </Container>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleCloseAcctMod} variant="danger">Close</Button>
+                        <Button onClick={this.handleCloseAcctMod} variant="primary">Update</Button>
+                    </Modal.Footer>
+                </Modal>
+
+
+
+
 
 
 
