@@ -80,7 +80,7 @@ class Home extends React.Component {
     // API call keeps running in the background
     componentDidUpdate() {
 
-        this.getUserInfoAccounts();
+        //this.getUserInfoAccounts();
 
     }
 
@@ -108,6 +108,7 @@ class Home extends React.Component {
                             link={accountGroup[0].link}
                             notes={accountGroup[0].notes}
                             userID={accountGroup[0]._id}
+                            getInfo={this.getUserInfoAccounts}
                         />
 
                         {accountGroup.length > 1 && <PassBubble
@@ -117,6 +118,7 @@ class Home extends React.Component {
                             link={accountGroup[1].link}
                             notes={accountGroup[1].notes}
                             userID={accountGroup[1]._id}
+                            getInfo={this.getUserInfoAccounts}
                         />}
                         {accountGroup.length > 2 && <PassBubble
                             name={accountGroup[2].name}
@@ -125,6 +127,7 @@ class Home extends React.Component {
                             link={accountGroup[2].link}
                             notes={accountGroup[2].notes}
                             userID={accountGroup[2]._id}
+                            getInfo={this.getUserInfoAccounts}
                         />}
                     </div >
                 ))}
@@ -190,6 +193,7 @@ class Home extends React.Component {
             .then(newAcctData => {
                 console.log('added');
                 console.log(newAcctData);
+                this.getUserInfoAccounts();
             }).catch(err => {
                 console.log(err);
             });
@@ -299,9 +303,9 @@ class Home extends React.Component {
                                                 value={this.state.acctName}
                                                 onChange={this.handleInputChange}
                                                 name="acctName"
-                                                type="text" />
+                                                type="text"
+                                            />
                                         </Form.Group>
-
 
                                         <Form.Group controlId="formBasicEmail">
                                             <Form.Label>Username</Form.Label>
@@ -309,7 +313,8 @@ class Home extends React.Component {
                                                 value={this.state.acctUsername}
                                                 onChange={this.handleInputChange}
                                                 name="acctUsername"
-                                                type="text" />
+                                                type="text"
+                                            />
                                         </Form.Group>
 
                                     </Form>

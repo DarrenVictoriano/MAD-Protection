@@ -18,7 +18,8 @@ class PassBubble extends React.Component {
         this.handleShowUpPassMod = this.handleShowUpPassMod.bind(this);
         this.handleCloseUpPassMod = this.handleCloseUpPassMod.bind(this);
 
-        this.attachRef = target => this.setState({ target });
+        this.attachRefUser = targetUser => this.setState({ targetUser });
+        this.attachRefPass = targetPass => this.setState({ targetPass });
 
         this.state = {
             name: props.name,
@@ -33,13 +34,9 @@ class PassBubble extends React.Component {
             modalLink: props.link,
             modalNotes: props.notes,
 
-            show: false,
+            showCopyUser: false,
             showCopyPass: false
         }
-    }
-
-    componentDidUpdate() {
-
     }
 
     handleCloseUpPassMod() {
@@ -57,16 +54,49 @@ class PassBubble extends React.Component {
         })
     }
 
-    handleCopyUser = event => {
-        const { show } = this.state;
+    hideToolTipUser = event => {
+        let timeID = setTimeout(() => {
+            const { showCopyUser } = this.state;
 
-        this.setState({ show: !show });
+            this.setState({
+                showCopyUser: !showCopyUser
+            });
+
+            clearTimeout(timeID);
+        }, 500);
+    }
+
+    hideToolTipPass = event => {
+        let timeID = setTimeout(() => {
+            const { showCopyPass } = this.state;
+
+            this.setState({
+                showCopyPass: !showCopyPass
+            });
+
+            clearTimeout(timeID);
+        }, 500);
+    }
+
+
+    handleCopyUser = event => {
+        const { showCopyUser } = this.state;
+
+        this.setState({ showCopyUser: !showCopyUser });
 
         navigator.clipboard.writeText(this.state.modalUser);
+
+        this.hideToolTipUser();
     }
 
     handleCopyPass = event => {
+        const { showCopyPass } = this.state;
+
+        this.setState({ showCopyPass: !showCopyPass });
+
         navigator.clipboard.writeText(this.state.modalPass);
+
+        this.hideToolTipPass();
     }
 
     handleUpdate = event => {
@@ -91,6 +121,7 @@ class PassBubble extends React.Component {
                     user: data.data.username,
                 });
 
+                this.props.getInfo();
                 this.handleCloseUpPassMod();
 
             }).catch(err => {
@@ -109,13 +140,16 @@ class PassBubble extends React.Component {
         API.deleteAccount(this.state.id, config)
             .then(data => {
                 console.log(data);
+                this.props.getInfo();
+                this.handleCloseUpPassMod();
+
             }).catch(err => {
                 console.log(err);
             });
     }
 
     render() {
-        let { show, target } = this.state;
+        let { showCopyUser, showCopyPass, targetUser, targetPass } = this.state;
         return (
             <div className="card bubble-style m-3">
 
@@ -126,7 +160,7 @@ class PassBubble extends React.Component {
                     <p className="card-text mb-1">{this.state.user}</p>
 
                     <Button
-                        ref={this.attachRef}
+                        ref={this.attachRefUser}
                         onClick={this.handleCopyUser}
                         className="btn btn-light py-0 px-2 m-1">
                         <small className="p-0 m-0">
@@ -134,6 +168,7 @@ class PassBubble extends React.Component {
                         </small>
                     </Button>
                     <Button
+                        ref={this.attachRefPass}
                         onClick={this.handleCopyPass}
                         className="btn btn-light py-0 px-2 m-1">
                         <small className="p-0 m-0">
@@ -243,7 +278,15 @@ class PassBubble extends React.Component {
                     </Modal.Footer>
                 </Modal>
 
-                <Overlay target={target} show={show} placement="top">
+                <Overlay target={targetUser} show={showCopyUser} placement="top">
+                    {props => (
+                        <Tooltip id="overlay-example" {...props}>
+                            Copied to clipboard!
+                        </Tooltip>
+                    )}
+                </Overlay>
+
+                <Overlay target={targetPass} show={showCopyPass} placement="top">
                     {props => (
                         <Tooltip id="overlay-example" {...props}>
                             Copied to clipboard!
