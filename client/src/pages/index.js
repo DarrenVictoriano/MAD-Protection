@@ -80,13 +80,13 @@ class Index extends React.Component {
                             </Col>
                             <Col>
                                 <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Absolute Protection.</h1>
-                                <p style={{ color: '#2f4f4f' }}>The information stored in your vault is kept secret, even from madPass. Through local encryption we assure you, your information is scure and protected. Your master password, and the keys used to encrypt and decrypt the information, are inaccessible to anyone but you, the user.</p>
+                                <p style={{ color: '#2f4f4f' }}>The information stored in your vault is kept secret, even from madPass. Through local encryption we assure you, your information is secure and protected. Your master password, and the keys used to encrypt and decrypt the information, are inaccessible to anyone but you.</p>
                             </Col>
                         </Row>
                         <Row className="text-left pt-6 mt-5">
                             <Col>
-                                <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Two-Factor Authentication.</h1>
-                                <p style={{ color: '#2f4f4f' }}>Two-factor authentication (sometimes referred to as multifactor or 2FA) adds extra security to your madPass account by requiring a second login step before authorizing access to your vault.</p>
+                                <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Powerful Encryption.</h1>
+                                <p style={{ color: '#2f4f4f' }}>By using an AES (Advanced Encryption System) algorithm with a 256-bit encryption key, we are able to thoroughly protect and secure user info. Using this, madPass keeps your information private, secure, and hidden (even from us).</p>
                             </Col>
                             <Col>
                                 <img
