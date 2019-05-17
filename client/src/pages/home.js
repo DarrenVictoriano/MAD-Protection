@@ -206,8 +206,8 @@ class Home extends React.Component {
                         <Navbar.Brand>
                             <img
                                 alt=""
-                                src={require("./Images/madPass2.png")}
-                                width="198"
+                                src={require("./Images/iconlogo3.png")}
+                                width="175"
                                 height="40"
                                 className="d-inline-block align-top"
                             />
