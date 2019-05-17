@@ -78,15 +78,13 @@ class Home extends React.Component {
     }
 
     // API call keeps running in the background
-    componentDidUpdate() {
+    // componentDidUpdate() {
 
-        //this.getUserInfoAccounts();
+    //     this.renderPassBubble();
 
-    }
+    // }
 
-
-
-    renderPassBubble = () => {
+    renderAccountData = () => {
         const accounts = this.state.accountDB;
         //console.log(accounts[0]);
 
@@ -96,6 +94,13 @@ class Home extends React.Component {
             if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
             groupedAccounts[j].push(accounts[i]);
         }
+
+        return groupedAccounts;
+    }
+
+    renderPassBubble = () => {
+
+        let groupedAccounts = this.renderAccountData();
 
         return (
             <Col>
@@ -234,19 +239,6 @@ class Home extends React.Component {
                                     className="text-danger"
                                     onClick={this.handleShowAddPassMod}
                                 ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
-                            </NavDropdown>
-
-                            <NavDropdown title="Notes" id="basic-nav-dropdown2">
-
-                                <NavDropdown.Item
-                                    href="/notes"
-                                >
-                                    <i className="fas fa-clipboard"></i> View Notes
-                                </NavDropdown.Item>
-
-
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item className="text-danger" onClick={this.handleShowNotes}><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown title={this.state.email} id="basic-nav-dropdown3">
