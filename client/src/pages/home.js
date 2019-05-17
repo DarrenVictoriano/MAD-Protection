@@ -43,8 +43,16 @@ class Home extends React.Component {
             acctUsername: "",
             acctUrl: "",
             acctPass: "",
-            acctNotes: ""
+            acctNotes: "",
+            groupedAccounts: [],
+            renderPage: false
         };
+    }
+
+    setRenderPage = () => {
+        this.setState({
+            renderPage: true
+        });
     }
 
     getUserInfoAccounts = () => {
@@ -56,9 +64,19 @@ class Home extends React.Component {
         })
             .then(userInfo => {
 
+                const accounts = userInfo.data.accountInfo;
+
+                let groupedAccounts = [];
+                for (let i = 0; i < accounts.length; ++i) {
+                    let j = Math.floor(i / 3);
+                    if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
+                    groupedAccounts[j].push(accounts[i]);
+                }
+
                 this.setState({
                     email: userInfo.data.email,
-                    accountDB: userInfo.data.accountInfo
+                    accountDB: userInfo.data.accountInfo,
+                    groupedAccounts: groupedAccounts
                 });
             })
             .catch(err => {
@@ -77,34 +95,18 @@ class Home extends React.Component {
 
     }
 
-    // API call keeps running in the background
-    // componentDidUpdate() {
+    //API call keeps running in the background
+    componentDidUpdate(prevState) {
 
-    //     this.renderPassBubble();
 
-    // }
 
-    renderAccountData = () => {
-        const accounts = this.state.accountDB;
-        //console.log(accounts[0]);
-
-        let groupedAccounts = [];
-        for (let i = 0; i < accounts.length; ++i) {
-            let j = Math.floor(i / 3);
-            if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
-            groupedAccounts[j].push(accounts[i]);
-        }
-
-        return groupedAccounts;
     }
 
     renderPassBubble = () => {
 
-        let groupedAccounts = this.renderAccountData();
-
         return (
             <Col>
-                {groupedAccounts.map(accountGroup => (
+                {this.state.groupedAccounts.map(accountGroup => (
                     <div className="d-flex" >
                         <PassBubble
                             name={accountGroup[0].name}

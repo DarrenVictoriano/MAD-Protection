@@ -132,6 +132,7 @@ class PassBubble extends React.Component {
                 });
 
                 this.props.getInfo();
+                window.location.reload();
                 this.handleCloseUpPassMod();
 
             }).catch(err => {
@@ -151,6 +152,8 @@ class PassBubble extends React.Component {
             .then(data => {
                 console.log(data);
                 this.props.getInfo();
+
+                window.location.reload();
                 this.handleCloseUpPassMod();
 
             }).catch(err => {
