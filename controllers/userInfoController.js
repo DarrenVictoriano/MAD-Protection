@@ -91,7 +91,7 @@ module.exports = {
 
     },
     updatePass: function (req, res) {
-        console.log("Nothing Happening");
+        //console.log("Nothing Happening");
         bcrypt.hash(req.body.Password, 10)
             .then(hash => {
                 let encryptedPass = {
@@ -101,7 +101,7 @@ module.exports = {
                 return db.UserInfo.findOneAndUpdate({ _id: req.params.id }, encryptedPass)
             })
             .then(dbUserPass => {
-                console.log('dbUserPass ' + dbUserPass.Password);
+                //console.log('dbUserPass ' + dbUserPass.Password);
                 res.json(dbUserPass)
             })
             .catch(err => res.status(422).json(err));
