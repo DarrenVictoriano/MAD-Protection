@@ -150,7 +150,7 @@ class PassBubble extends React.Component {
 
         API.deleteAccount(this.state.id, config)
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 this.props.getInfo();
 
                 window.location.reload();

@@ -93,7 +93,7 @@ module.exports = {
                     link: mad.decrypt(dbAccountInfo.link),
                     notes: mad.decrypt(dbAccountInfo.notes)
                 }
-                console.log(decryptedData);
+                //console.log(decryptedData);
                 res.json(decryptedData);
             })
             .catch(err => res.status(422).json(err));

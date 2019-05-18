@@ -281,7 +281,7 @@ class Home extends React.Component {
 
         API.createAcctPass(localStorage.getItem('userID'), config, newAccount)
             .then(newAcctData => {
-                console.log(newAcctData);
+                //console.log(newAcctData);
                 this.getUserInfoAccounts();
             }).catch(err => {
                 console.log(err);
