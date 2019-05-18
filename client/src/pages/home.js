@@ -427,7 +427,7 @@ class Home extends React.Component {
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Current Password</Form.Label>
                                     <Form.Control
-                                        type="text"
+                                        type="password"
                                         name="oldPass"
                                     />
                                 </Form.Group>
