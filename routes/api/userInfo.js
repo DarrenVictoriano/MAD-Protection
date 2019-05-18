@@ -8,7 +8,7 @@ router.route("/")
 
 router.route("/:id")
     .get(validateToken, userInfoController.findById) // protected
-    .put(validateToken, userInfoController.update) // protected
+    .put(validateToken, userInfoController.updatePass) // protected???
     .delete(validateToken, userInfoController.remove); // protected
 
 module.exports = router;

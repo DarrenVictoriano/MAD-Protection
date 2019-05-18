@@ -83,7 +83,6 @@ class Notes extends React.Component {
     }
 
     handleshowUpNoteModal() {
-        console.log("shit");
         this.setState({ showUpNoteModal: true });
     }
 
