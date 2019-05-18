@@ -38,7 +38,7 @@ function decryptAccountArr(arr) {
     arr.forEach(item => {
         decryptedArr.push({
             _id: item._id,
-            name: decrypt(item.name),
+            name: item.name,
             username: decrypt(item.username),
             password: decrypt(item.password),
             link: decrypt(item.link),
