@@ -50,6 +50,7 @@ class Login extends React.Component {
 
                 localStorage.setItem('token', userInfoDB.data.token);
                 localStorage.setItem('userID', userInfoDB.data.data._id);
+                localStorage.setItem('email', userInfoDB.data.data.email)
 
                 this.props.history.push("/home");
 
