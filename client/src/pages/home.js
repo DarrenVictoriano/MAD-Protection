@@ -17,8 +17,8 @@ import Col from "react-bootstrap/Col";
 
 class Home extends React.Component {
 
-    constructor(props, ...args) {
-        super(props, ...args);
+    constructor(props) {
+        super(props);
 
         this.handleShowAddPassMod = this.handleShowAddPassMod.bind(this);
         this.handleCloseAddPassMod = this.handleCloseAddPassMod.bind(this);
