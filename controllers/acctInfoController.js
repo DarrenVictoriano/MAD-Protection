@@ -74,7 +74,6 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {
-
         let encryptData = {
             name: req.body.name,
             username: mad.encrypt(req.body.username),
@@ -86,7 +85,6 @@ module.exports = {
         db.AccountInfo
             .findOneAndUpdate({ _id: req.params.id }, encryptData)
             .then(dbAccountInfo => {
-
                 let decryptedData = {
                     _id: dbAccountInfo._id,
                     name: dbAccountInfo.name,

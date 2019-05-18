@@ -90,20 +90,21 @@ module.exports = {
             });
 
     },
-    update: function (req, res) {
-
+    updatePass: function (req, res) {
+        console.log("Nothing Happening");
         bcrypt.hash(req.body.Password, 10)
             .then(hash => {
-                let encrytedData = {
-                    email: req.body.email,
+                let encryptedPass = {
                     Password: hash
                 };
 
-                return db.UserInfo.findOneAndUpdate({ _id: req.params.id }, encrytedData)
+                return db.UserInfo.findOneAndUpdate({ _id: req.params.id }, encryptedPass)
             })
-            .then(dbUserInfo => res.json(dbUserInfo))
+            .then(dbUserPass => {
+                console.log('dbUserPass ' + dbUserPass.Password);
+                res.json(dbUserPass)
+            })
             .catch(err => res.status(422).json(err));
-
     },
     remove: function (req, res) {
         db.UserInfo

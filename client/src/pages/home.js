@@ -26,6 +26,9 @@ class Home extends React.Component {
         this.handleShowNotes = this.handleShowNotes.bind(this);
         this.handleCloseNotes = this.handleCloseNotes.bind(this);
 
+        this.handleShowAcctMod = this.handleShowAcctMod.bind(this);
+        this.handleCloseAcctMod = this.handleCloseAcctMod.bind(this);
+
         this.renderPassBubble = this.renderPassBubble.bind(this);
 
         this.state = {
@@ -38,6 +41,7 @@ class Home extends React.Component {
             showAddPassModal: false,
             showUpPassModal: false,
             showAddNoteModal: false,
+            showAcctModal: false,
 
             acctName: "",
             acctUsername: "",
@@ -46,6 +50,10 @@ class Home extends React.Component {
             acctNotes: "",
             groupedAccounts: [],
             renderPage: false,
+
+            newPass: "",
+            confirmNewPass: "",
+            hideNewPassError: "d-none",
             search: ""
         };
     }
@@ -152,6 +160,42 @@ class Home extends React.Component {
         })
     }
 
+    handleNewUserPass = event => {
+        event.preventDefault();
+        // show error if password does not match
+        if (this.state.newPass !== this.state.confirmNewPass) {
+            this.setState({
+                newPass: "",
+                confirmNewPass: "",
+                hideNewPassError: "d-block"
+            });
+        } else {
+            // Update password in db
+            let config = {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem('token')
+                }
+            }
+
+            let newPass = {
+                Password: this.state.newPass
+            }
+
+            API.updateUserPass(localStorage.getItem('userID'), newPass, config)
+                .then(data => {
+                    // Log Data
+                    this.setState({
+                        Password: data.data.Password
+                    });
+
+                    this.handleCloseAcctMod();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }
+
     handleLogout = event => {
         localStorage.setItem('token', null);
         localStorage.setItem('userID', null);
@@ -172,6 +216,14 @@ class Home extends React.Component {
 
     handleShowNotes() {
         this.setState({ showAddNoteModal: true });
+    }
+
+    handleShowAcctMod() {
+        this.setState({ showAcctModal: true });
+    }
+
+    handleCloseAcctMod() {
+        this.setState({ showAcctModal: false });
     }
 
     handleAddPass = event => {
@@ -201,7 +253,6 @@ class Home extends React.Component {
 
         API.createAcctPass(localStorage.getItem('userID'), config, newAccount)
             .then(newAcctData => {
-                console.log('added');
                 console.log(newAcctData);
                 this.getUserInfoAccounts();
             }).catch(err => {
@@ -247,7 +298,7 @@ class Home extends React.Component {
                             </NavDropdown>
 
                             <NavDropdown title={this.state.email} id="basic-nav-dropdown3">
-                                <NavDropdown.Item><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
+                                <NavDropdown.Item onClick={this.handleShowAcctMod}><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item
                                     onClick={this.handleLogout}
@@ -373,6 +424,59 @@ class Home extends React.Component {
                 </Modal>
 
 
+                <Modal centered size="md" show={this.state.showAcctModal} onHide={this.handleCloseAcctMod}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update Password</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+
+                        <Container>
+
+                            <Form>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Current Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="oldPass"
+                                    />
+                                </Form.Group>
+                            </Form>
+
+                            <Form>
+                                <Form.Group controlId="updateUserPass">
+                                    <Form.Label>New Password</Form.Label>
+                                    <Form.Control
+                                        value={this.state.newPass}
+                                        onChange={this.handleInputChange}
+                                        name="newPass"
+                                        type="password"
+                                    />
+                                    <Form.Text className={`text-danger ${this.state.hideNewPassError}`}>
+                                        Passwords does not match.
+                                        </Form.Text>
+                                </Form.Group>
+                            </Form>
+
+                            <Form>
+                                <Form.Group controlId="updateUserPass2">
+                                    <Form.Label>Confirm Password</Form.Label>
+                                    <Form.Control
+                                        value={this.state.confirmNewPass}
+                                        onChange={this.handleInputChange}
+                                        type="password"
+                                        name="confirmNewPass"
+                                    />
+                                </Form.Group>
+                            </Form>
+
+                        </Container>
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleCloseAcctMod} variant="danger">Close</Button>
+                        <Button onClick={this.handleNewUserPass} variant="primary">Update</Button>
+                    </Modal.Footer>
+                </Modal>
 
                 <Modal centered size="lg" show={this.state.showAddNoteModal} onHide={this.handleCloseNotes}>
                     <Modal.Header closeButton>
