@@ -440,7 +440,7 @@ class Home extends React.Component {
                                         value={this.state.newPass}
                                         onChange={this.handleInputChange}
                                         name="newPass"
-                                        type="text"
+                                        type="password"
                                     />
                                     <Form.Text className={`text-danger ${this.state.hideNewPassError}`}>
                                         Passwords does not match.
@@ -454,7 +454,7 @@ class Home extends React.Component {
                                     <Form.Control
                                         value={this.state.confirmNewPass}
                                         onChange={this.handleInputChange}
-                                        type="text"
+                                        type="password"
                                         name="confirmNewPass"
                                     />
                                 </Form.Group>
