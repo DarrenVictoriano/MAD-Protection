@@ -53,7 +53,8 @@ class Home extends React.Component {
 
             newPass: "",
             confirmNewPass: "",
-            hideNewPassError: "d-none"
+            hideNewPassError: "d-none",
+            search: ""
         };
     }
 
@@ -65,7 +66,7 @@ class Home extends React.Component {
 
     getUserInfoAccounts = () => {
         // get UserInfo including all accounts
-        API.getUserInfo(this.props.getUserID, {
+        API.getUserInfo(localStorage.getItem('userID'), {
             headers: {
                 'Authorization': "Bearer " + localStorage.getItem('token')
             }
@@ -74,18 +75,20 @@ class Home extends React.Component {
 
                 const accounts = userInfo.data.accountInfo;
 
-                let groupedAccounts = [];
+                let groupedAccountsArr = [];
                 for (let i = 0; i < accounts.length; ++i) {
                     let j = Math.floor(i / 3);
-                    if (typeof groupedAccounts[j] === 'undefined') groupedAccounts[j] = [];
-                    groupedAccounts[j].push(accounts[i]);
+                    if (typeof groupedAccountsArr[j] === 'undefined') groupedAccountsArr[j] = [];
+                    groupedAccountsArr[j].push(accounts[i]);
                 }
-
+                console.log(this.state.groupedAccounts);
                 this.setState({
                     email: userInfo.data.email,
                     accountDB: userInfo.data.accountInfo,
-                    groupedAccounts: groupedAccounts
+                    groupedAccounts: groupedAccountsArr
                 });
+
+                console.log(this.state.groupedAccounts);
             })
             .catch(err => {
                 // this means token is invalid or expired
@@ -310,9 +313,15 @@ class Home extends React.Component {
                                     placeholder="search my vault"
                                     aria-label="Recipient's username"
                                     aria-describedby="basic-addon2"
+                                    name="search"
+                                    onChange={this.handleInputChange}
+                                    value={this.state.search}
                                 />
                                 <InputGroup.Append>
-                                    <Button variant="outline-secondary"><i className="fas fa-search"></i></Button>
+                                    <Button
+                                        onClick={this.getUserInfoAccounts}
+                                        variant="outline-secondary"
+                                    ><i className="fas fa-search"></i></Button>
                                 </InputGroup.Append>
                             </InputGroup>
 
