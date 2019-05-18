@@ -53,7 +53,9 @@ class Home extends React.Component {
 
             newPass: "",
             confirmNewPass: "",
+            oldPass: "",
             hideNewPassError: "d-none",
+            hideOldPassError: "d-none",
             search: ""
         };
     }
@@ -162,6 +164,7 @@ class Home extends React.Component {
 
     handleNewUserPass = event => {
         event.preventDefault();
+
         // show error if password does not match
         if (this.state.newPass !== this.state.confirmNewPass) {
             this.setState({
@@ -170,18 +173,35 @@ class Home extends React.Component {
                 hideNewPassError: "d-block"
             });
         } else {
-            // Update password in db
-            let config = {
-                headers: {
-                    "Authorization": "Bearer " + localStorage.getItem('token')
-                }
+            // Login make sure old pass is correct
+            let loginCredential = {
+                email: localStorage.getItem('email'),
+                Password: this.state.oldPass
             }
 
-            let newPass = {
-                Password: this.state.newPass
-            }
+            API.loginUser(loginCredential)
+                .then(userInfoDB => {
 
-            API.updateUserPass(localStorage.getItem('userID'), newPass, config)
+                    this.props.setToken(userInfoDB.data.token);
+                    this.props.setUserID(userInfoDB.data.data._id);
+
+                    localStorage.setItem('token', userInfoDB.data.token);
+                    localStorage.setItem('userID', userInfoDB.data.data._id);
+
+                    // Update password in db
+                    let config = {
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem('token')
+                        }
+                    }
+                    // new Pass
+                    let newPass = {
+                        Password: this.state.newPass
+                    }
+
+                    return API.updateUserPass(localStorage.getItem('userID'), newPass, config)
+
+                })
                 .then(data => {
                     // Log Data
                     this.setState({
@@ -191,14 +211,22 @@ class Home extends React.Component {
                     this.handleCloseAcctMod();
                 })
                 .catch(err => {
+                    this.setState({
+                        hideOldPassError: "d-block",
+                        newPass: "",
+                        confirmNewPass: "",
+                        oldPass: ""
+                    });
                     console.log(err);
                 });
+
         }
     }
 
     handleLogout = event => {
         localStorage.setItem('token', null);
         localStorage.setItem('userID', null);
+        localStorage.setItem('email', null);
         window.location.assign('/');
     }
 
@@ -438,7 +466,12 @@ class Home extends React.Component {
                                     <Form.Control
                                         type="password"
                                         name="oldPass"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.oldPass}
                                     />
+                                    <Form.Text className={`text-danger ${this.state.hideOldPassError}`}>
+                                        Invalid Password.
+                                    </Form.Text>
                                 </Form.Group>
                             </Form>
 
@@ -453,7 +486,7 @@ class Home extends React.Component {
                                     />
                                     <Form.Text className={`text-danger ${this.state.hideNewPassError}`}>
                                         Passwords does not match.
-                                        </Form.Text>
+                                    </Form.Text>
                                 </Form.Group>
                             </Form>
 
