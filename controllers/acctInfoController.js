@@ -2,6 +2,7 @@ const db = require("../models");
 const mad = require("../utils/encryption");
 
 module.exports = {
+
     findAll: function (req, res) {
 
         db.AccountInfo
@@ -32,7 +33,7 @@ module.exports = {
 
                 let decryptedData = {
                     _id: dbAccountInfo._id,
-                    name: mad.decrypt(dbAccountInfo.name),
+                    name: dbAccountInfo.name,
                     username: mad.decrypt(dbAccountInfo.username),
                     password: mad.decrypt(dbAccountInfo.password),
                     link: mad.decrypt(dbAccountInfo.link),
@@ -46,7 +47,7 @@ module.exports = {
     create: function (req, res) {
 
         let encryptData = {
-            name: mad.encrypt(req.body.name),
+            name: req.body.name,
             username: mad.encrypt(req.body.username),
             password: mad.encrypt(req.body.password),
             link: mad.encrypt(req.body.link),
@@ -75,7 +76,7 @@ module.exports = {
     update: function (req, res) {
 
         let encryptData = {
-            name: mad.encrypt(req.body.name),
+            name: req.body.name,
             username: mad.encrypt(req.body.username),
             password: mad.encrypt(req.body.password),
             link: mad.encrypt(req.body.link),
@@ -88,14 +89,14 @@ module.exports = {
 
                 let decryptedData = {
                     _id: dbAccountInfo._id,
-                    name: mad.decrypt(dbAccountInfo.name),
+                    name: dbAccountInfo.name,
                     username: mad.decrypt(dbAccountInfo.username),
                     password: mad.decrypt(dbAccountInfo.password),
                     link: mad.decrypt(dbAccountInfo.link),
                     notes: mad.decrypt(dbAccountInfo.notes)
                 }
-
-                res.json(decryptedData)
+                console.log(decryptedData);
+                res.json(decryptedData);
             })
             .catch(err => res.status(422).json(err));
     },
