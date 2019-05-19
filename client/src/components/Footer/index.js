@@ -26,7 +26,9 @@ class Footer extends React.Component {
                                 </Tooltip>
                             }
                         >
-                            <Link className="text-light" to="/">m</Link>
+                            <a className="text-light" href="https://github.com/sweetmike" target="_blank" rel="noopener noreferrer">
+                                m
+                            </a>
                         </OverlayTrigger>
                         &nbsp;&bull;&nbsp;
                         <OverlayTrigger
@@ -38,7 +40,9 @@ class Footer extends React.Component {
                                 </Tooltip>
                             }
                         >
-                            <Link className="text-light" to="/">a</Link>
+                            <a className="text-light" href="https://github.com/aaron4543" target="_blank" rel="noopener noreferrer">
+                                a
+                            </a>
                         </OverlayTrigger>
                         &nbsp;&bull;&nbsp;
                         <OverlayTrigger
@@ -50,14 +54,16 @@ class Footer extends React.Component {
                                 </Tooltip>
                             }
                         >
-                            <Link className="text-light" to="/">d</Link>
+                            <a className="text-light" href="https://github.com/DarrenVictoriano/" target="_blank" rel="noopener noreferrer">
+                                d
+                            </a>
                         </OverlayTrigger>
                     </p>
 
                     <p className="mt-4 mb-0">Find us on</p>
-                    <Link to="/">
+                    <a href="https://github.com/DarrenVictoriano/MAD-Protection" target="_blank" rel="noopener noreferrer">
                         <h1 className="text-light"><i className="fab fa-github"></i></h1>
-                    </Link>
+                    </a>
                 </Container>
             </div>
         );
