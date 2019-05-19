@@ -2,7 +2,7 @@
 import API from "../utils/API";
 import React from "react";
 import { Link } from "react-router-dom"
-// Components Below: 
+// Components Below:
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -46,7 +46,7 @@ class Relog extends React.Component {
                                 </h3>
                                 <Button
                                     href="/login"
-                                    variant="dark" >
+                                    variant="success" >
                                     Login
                                 </Button>
                             </Col>
