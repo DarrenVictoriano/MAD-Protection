@@ -131,8 +131,7 @@ class Login extends React.Component {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="ml-auto">
-                            <Nav.Link eventKey="1" href="#deets">How It Works</Nav.Link>
-                            <Nav.Link eventKey="2" href="#memes">Security</Nav.Link>
+
                             <Link to="/login">
                                 <Button className="ml-4" variant="success" eventKey="3">Get madPass Free</Button>
                             </Link>
