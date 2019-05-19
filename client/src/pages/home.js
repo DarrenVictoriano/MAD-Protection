@@ -295,7 +295,7 @@ class Home extends React.Component {
         return (
             <div>
                 <Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
-                    <Link to="/">
+                    <Link to="/home">
                         <Navbar.Brand>
                             <img
                                 alt=""
@@ -309,21 +309,12 @@ class Home extends React.Component {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav>
-                            <NavDropdown title="Passwords" id="basic-nav-dropdown1">
-
-                                <NavDropdown.Item
-                                    href="/home"
-                                >
-                                    <i className="fas fa-briefcase"></i> View Vault
-                                </NavDropdown.Item>
-
-
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item
-                                    className="text-danger"
-                                    onClick={this.handleShowAddPassMod}
-                                ><i className="fas fa-plus"></i> Add Entry</NavDropdown.Item>
-                            </NavDropdown>
+                            <Nav.Link
+                                className="text-danger"
+                                onClick={this.handleShowAddPassMod}
+                            >
+                                <i className="fas fa-plus"></i> Add Entry
+                            </Nav.Link>
 
                             <NavDropdown title={this.state.email} id="basic-nav-dropdown3">
                                 <NavDropdown.Item onClick={this.handleShowAcctMod}><i className="fas fa-cog"></i> Account Settings</NavDropdown.Item>
