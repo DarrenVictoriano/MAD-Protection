@@ -126,13 +126,13 @@ class Index extends React.Component {
                                     className="d-inline-block align-top"
                                 />
                             </Col>
-                            <Col>
+                            <Col className="pt-5">
                                 <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Absolute Protection.</h1>
                                 <p style={{ color: '#2f4f4f' }}>The information stored in your vault is kept secret, even from madPass. Through local encryption we assure you, your information is secure and protected. Your master password, and the keys used to encrypt and decrypt the information, are inaccessible to anyone but you.</p>
                             </Col>
                         </Row>
                         <Row className="pt-6 mt-5 pt-5">
-                            <Col className="text-right">
+                            <Col className="text-right pt-5">
                                 <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Powerful Encryption.</h1>
                                 <p style={{ color: '#2f4f4f' }}>By using an AES (Advanced Encryption System) algorithm with a 256-bit encryption key, we are able to thoroughly protect and secure user info. Using this, madPass keeps your information private, secure, and hidden (even from us).</p>
                             </Col>
@@ -149,7 +149,7 @@ class Index extends React.Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col className="text-center pt-6 mt-5">
+                            <Col className="text-center pt-5 mt-5">
 
                                 <Link to="/login">
                                     <Button className="ml-4" variant="success" size="lg" eventKey="3">Get madPass Now</Button>
