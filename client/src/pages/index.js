@@ -76,10 +76,10 @@ class Index extends React.Component {
                                     alt=""
                                     src={require("./Images/how_to_create.png")}
                                     height="300"
-                                    className="d-inline-block align-top"
+                                    className="d-inline-block align-top img-thumbnail"
                                 />
                             </Col>
-                            <Col className="pt-5">
+                            <Col className="pt-1">
                                 <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Create an Account.</h1>
                                 <p style={{ color: '#2f4f4f' }}>
                                     Sign-up for a madPass account, its free and its the only password that you will need to remember.
@@ -87,7 +87,7 @@ class Index extends React.Component {
                             </Col>
                         </Row>
                         <Row className="mt-5 pt-5">
-                            <Col className="text-right pt-5">
+                            <Col className="text-right pt-1">
                                 <h1 style={{ fontWeight: 'bold', color: '#2f4f4f' }}>Save your passwords to your vault.</h1>
                                 <p style={{ color: '#2f4f4f' }}>
                                     Simply add all your account into your vault. You vault is securely encrypted. Promise.
@@ -98,7 +98,7 @@ class Index extends React.Component {
                                     alt=""
                                     src={require("./Images/how_to_add.png")}
                                     height="300"
-                                    className="d-inline-block align-top"
+                                    className="d-inline-block align-top img-thumbnail"
                                 />
 
 
